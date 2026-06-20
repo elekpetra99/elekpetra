@@ -1,13 +1,16 @@
 "use client";
 
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { useLanguage } from "@/components/LanguageContext";
 
 export function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="section">
       <div className="container">
         <AnimatedSection animation="fadeUp">
-          <h2 className="section-title">Contact</h2>
+          <h2 className="section-title">{t.contact.title}</h2>
         </AnimatedSection>
 
         <AnimatedSection animation="fadeUp" delay={1}>
@@ -15,14 +18,13 @@ export function Contact() {
             {/* Contact info */}
             <div>
               <p className="text-lg text-[var(--muted)] mb-8 max-w-lg">
-                For bookings, collaborations, or inquiries, please reach out through 
-                the form or contact details below.
+                {t.contact.intro}
               </p>
 
               <div className="space-y-6">
                 <div>
                   <h3 className="text-sm tracking-wide uppercase text-[var(--muted)] mb-2">
-                    Email
+                    {t.contact.email}
                   </h3>
                   <a 
                     href="mailto:contact@example.com" 
@@ -34,7 +36,7 @@ export function Contact() {
 
                 <div>
                   <h3 className="text-sm tracking-wide uppercase text-[var(--muted)] mb-2">
-                    Social
+                    {t.contact.social}
                   </h3>
                   <div className="flex gap-4">
                     {["Instagram", "YouTube", "Spotify"].map((platform) => (
@@ -59,13 +61,13 @@ export function Contact() {
                     htmlFor="name"
                     className="block text-sm tracking-wide uppercase text-[var(--muted)] mb-2"
                   >
-                    Name
+                    {t.contact.formName}
                   </label>
                   <input
                     type="text"
                     id="name"
                     className="w-full px-4 py-3 bg-[var(--cream)] border border-[var(--border)] focus:border-[var(--burgundy)] outline-none transition-colors"
-                    placeholder="Your name"
+                    placeholder="..."
                   />
                 </div>
 
@@ -74,13 +76,13 @@ export function Contact() {
                     htmlFor="email"
                     className="block text-sm tracking-wide uppercase text-[var(--muted)] mb-2"
                   >
-                    Email
+                    {t.contact.formEmail}
                   </label>
                   <input
                     type="email"
                     id="email"
                     className="w-full px-4 py-3 bg-[var(--cream)] border border-[var(--border)] focus:border-[var(--burgundy)] outline-none transition-colors"
-                    placeholder="your@email.com"
+                    placeholder="..."
                   />
                 </div>
 
@@ -89,18 +91,18 @@ export function Contact() {
                     htmlFor="message"
                     className="block text-sm tracking-wide uppercase text-[var(--muted)] mb-2"
                   >
-                    Message
+                    {t.contact.formMessage}
                   </label>
                   <textarea
                     id="message"
                     rows={5}
                     className="w-full px-4 py-3 bg-[var(--cream)] border border-[var(--border)] focus:border-[var(--burgundy)] outline-none transition-colors resize-none"
-                    placeholder="Your message..."
+                    placeholder="..."
                   />
                 </div>
 
                 <button type="submit" className="btn-primary">
-                  Send Message
+                  {t.contact.formSubmit}
                 </button>
               </form>
             </div>

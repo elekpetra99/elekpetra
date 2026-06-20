@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Crimson_Pro, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/components/LanguageContext";
 
 const crimson = Crimson_Pro({
   subsets: ["latin"],
@@ -17,13 +18,13 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "[Full Name] — Classical Musician",
-  description: "Official website of [Full Name], classical musician and performer.",
+  title: "Elek Petra — Classical Musician",
+  description: "Official website of Elek Petra, classical musician and performer.",
   keywords: ["classical music", "musician", "performer", "chamber music", "orchestral"],
-  authors: [{ name: "[Full Name]" }],
+  authors: [{ name: "Elek Petra" }],
   openGraph: {
-    title: "[Full Name] — Classical Musician",
-    description: "Official website of [Full Name], classical musician and performer.",
+    title: "Elek Petra — Classical Musician",
+    description: "Official website of Elek Petra, classical musician and performer.",
     type: "website",
     locale: "en_US",
   },
@@ -36,7 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${crimson.variable} ${cormorant.variable}`}>
-      <body>{children}</body>
+      <body>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

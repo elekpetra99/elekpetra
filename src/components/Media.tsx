@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { useLanguage } from "@/components/LanguageContext";
 
 interface MediaItem {
   type: "image" | "video" | "audio";
@@ -19,16 +20,18 @@ const mediaItems: MediaItem[] = [
 ];
 
 export function Media() {
+  const { t } = useLanguage();
+
   return (
     <section id="media" className="section bg-[var(--cream-dark)]">
       <div className="container">
         <AnimatedSection animation="fadeUp">
-          <h2 className="section-title">Media</h2>
+          <h2 className="section-title">{t.media.title}</h2>
         </AnimatedSection>
 
         <AnimatedSection animation="fadeUp" delay={1}>
           <p className="mt-12 mb-12 text-lg text-[var(--muted)] max-w-2xl">
-            Recordings and photographs from performances and sessions.
+            {t.media.intro}
           </p>
         </AnimatedSection>
 

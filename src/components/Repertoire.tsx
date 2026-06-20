@@ -1,11 +1,11 @@
 "use client";
 
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { useLanguage } from "@/components/LanguageContext";
 
 interface RepertoireItem {
   title: string;
   composer: string;
-  notes?: string;
 }
 
 const repertoire: RepertoireItem[] = [
@@ -18,17 +18,18 @@ const repertoire: RepertoireItem[] = [
 ];
 
 export function Repertoire() {
+  const { t } = useLanguage();
+
   return (
     <section id="repertoire" className="section">
       <div className="container">
         <AnimatedSection animation="fadeUp">
-          <h2 className="section-title">Repertoire</h2>
+          <h2 className="section-title">{t.repertoire.title}</h2>
         </AnimatedSection>
 
         <AnimatedSection animation="fadeUp" delay={1}>
           <p className="mt-12 mb-12 text-lg text-[var(--muted)] max-w-2xl">
-            A selection of works from the classical repertoire, curated through years of 
-            study and performance experience.
+            {t.repertoire.intro}
           </p>
         </AnimatedSection>
 
@@ -45,7 +46,7 @@ export function Repertoire() {
 
         <AnimatedSection animation="fadeUp" delay={3}>
           <p className="mt-8 text-sm text-[var(--muted)]">
-            Additional repertoire available upon request.
+            {t.repertoire.note}
           </p>
         </AnimatedSection>
       </div>
