@@ -13,7 +13,7 @@ export function Hero() {
           {/* Text content */}
           <div className="lg:col-span-6 order-2 lg:order-1">
             <AnimatedSection animation="fadeUp" delay={0} aboveFold>
-              <p className="section-subtitle mb-6">
+              <p className="section-subtitle mb-8 mt-4">
                 {t.hero.tagline}
               </p>
             </AnimatedSection>
