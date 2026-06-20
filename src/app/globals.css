@@ -156,22 +156,33 @@ nav {
   .mobile-menu-btn { display: none; }
 }
 
-/* Mobile dropdown */
+/* Mobile dropdown - slide from right */
 .mobile-nav {
-  display: none;
-  position: absolute;
+  position: fixed;
   top: 60px;
-  left: 0;
   right: 0;
+  width: 280px;
+  max-width: 85vw;
+  height: calc(100vh - 60px);
   background: var(--cream);
-  border-bottom: 1px solid var(--stone);
-  padding: 1rem 1.25rem;
+  border-left: 1px solid var(--stone);
+  padding: 1.5rem 1.25rem;
   z-index: 999;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-nav.open {
-  display: flex;
-  flex-direction: column;
+  transform: translateX(0);
+}
+
+/* Hide mobile nav on desktop */
+@media (min-width: 768px) {
+  .mobile-nav {
+    display: none !important;
+  }
 }
 
 .mobile-nav a {
