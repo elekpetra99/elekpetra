@@ -1,181 +1,65 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
-type Language = "en" | "hu";
-
-interface Translations {
-  nav: {
-    about: string;
-    repertoire: string;
-    media: string;
-    contact: string;
-  };
-  hero: {
-    tagline: string;
-    ctaRepertoire: string;
-    ctaContact: string;
-    portraitAlt: string;
-  };
-  about: {
-    title: string;
-    highlights: string;
-    bio1: string;
-    bio2: string;
-    bio3: string;
-    highlight1: string;
-    highlight2: string;
-    highlight3: string;
-    highlight4: string;
-  };
-  repertoire: {
-    title: string;
-    intro: string;
-    note: string;
-  };
-  media: {
-    title: string;
-    intro: string;
-  };
-  contact: {
-    title: string;
-    intro: string;
-    email: string;
-    social: string;
-    formName: string;
-    formEmail: string;
-    formMessage: string;
-    formSubmit: string;
-  };
-  footer: {
-    copyright: string;
-    privacy: string;
-    terms: string;
-  };
-}
-
-const translations: Record<Language, Translations> = {
-  en: {
-    nav: {
-      about: "About",
-      repertoire: "Repertoire",
-      media: "Media",
-      contact: "Contact",
-    },
-    hero: {
-      tagline: "Soprano",
-      ctaRepertoire: "Explore Repertoire",
-      ctaContact: "Get in Touch",
-      portraitAlt: "Elek Petra portrait",
-    },
-    about: {
-      title: "About",
-      highlights: "Career Highlights",
-      bio1: "[Background, education, training. Replace with actual content.]",
-      bio2: "[Artistic philosophy, approach to music, key influences.]",
-      bio3: "[Notable achievements, collaborations, current activities.]",
-      highlight1: "[Achievement or performance highlight]",
-      highlight2: "[Achievement or performance highlight]",
-      highlight3: "[Achievement or performance highlight]",
-      highlight4: "[Achievement or performance highlight]",
-    },
-    repertoire: {
-      title: "Repertoire",
-      intro: "A selection of works from the classical repertoire, curated through years of study and performance experience.",
-      note: "Additional repertoire available upon request.",
-    },
-    media: {
-      title: "Media",
-      intro: "Recordings and photographs from performances and sessions.",
-    },
-    contact: {
-      title: "Contact",
-      intro: "For bookings, collaborations, or inquiries, please reach out through the form or contact details below.",
-      email: "Email",
-      social: "Social",
-      formName: "Name",
-      formEmail: "Email",
-      formMessage: "Message",
-      formSubmit: "Send Message",
-    },
-    footer: {
-      copyright: "All rights reserved.",
-      privacy: "Privacy",
-      terms: "Terms",
-    },
-  },
-  hu: {
-    nav: {
-      about: "Bemutatkozás",
-      repertoire: "Repertoár",
-      media: "Média",
-      contact: "Kapcsolat",
-    },
-    hero: {
-      tagline: "Szoprán",
-      ctaRepertoire: "Repertoár",
-      ctaContact: "Kapcsolat",
-      portraitAlt: "Elek Petra portré",
-    },
-    about: {
-      title: "Bemutatkozás",
-      highlights: "Karrier Kiemelések",
-      bio1: "[Háttér, tanulmányok, képzés. Cserélje ki a tényleges tartalomra.]",
-      bio2: "[Művészeti filozófia, zenei megközelítés, hatások.]",
-      bio3: "[Kiemelkedő eredmények, együttműködések, jelenlegi tevékenységek.]",
-      highlight1: "[Eredmény vagy fellépés kiemelése]",
-      highlight2: "[Eredmény vagy fellépés kiemelése]",
-      highlight3: "[Eredmény vagy fellépés kiemelése]",
-      highlight4: "[Eredmény vagy fellépés kiemelése]",
-    },
-    repertoire: {
-      title: "Repertoár",
-      intro: "Válogatás a klasszikus repertoárból, az évek során elsajátított művek.",
-      note: "További művek igény szerint elérhetők.",
-    },
-    media: {
-      title: "Média",
-      intro: "Felvételek és fényképek fellépésekről és hangversenyekről.",
-    },
-    contact: {
-      title: "Kapcsolat",
-      intro: "Fellépések, együttműködések vagy egyéb megkeresések esetén kérem lépjen kapcsolatba az alábbi elérhetőségeken.",
-      email: "Email",
-      social: "Közösségi",
-      formName: "Név",
-      formEmail: "Email",
-      formMessage: "Üzenet",
-      formSubmit: "Küldés",
-    },
-    footer: {
-      copyright: "Minden jog fenntartva.",
-      privacy: "Adatvédelem",
-      terms: "Feltételek",
-    },
-  },
+type Translations = {
+  nav: { about: string; repertoire: string; media: string; contact: string };
+  hero: { tagline: string; ctaRepertoire: string; ctaContact: string };
+  about: { title: string; bio: string[]; highlights: string };
+  repertoire: { title: string; intro: string };
+  media: { title: string; intro: string };
+  contact: { title: string; intro: string };
 };
 
-interface LanguageContextType {
-  lang: Language;
-  setLang: (lang: Language) => void;
+const en: Translations = {
+  nav: { about: "About", repertoire: "Repertoire", media: "Media", contact: "Contact" },
+  hero: { tagline: "Soprano", ctaRepertoire: "Explore Repertoire", ctaContact: "Get in Touch" },
+  about: {
+    title: "About",
+    bio: [
+      "Petra Elek is a soprano whose performances are marked by deep musical insight and compelling dramatic presence.",
+      "After completing her studies at the Liszt Ferenc Academy of Music in Budapest, she has established herself as a versatile artist equally at home in operatic roles and concert repertoire.",
+      "Beyond solo performances, she maintains an active interest in chamber music and collaborative projects."
+    ],
+    highlights: "Career Highlights"
+  },
+  repertoire: { title: "Repertoire", intro: "A selection of works from the classical repertoire." },
+  media: { title: "Media", intro: "Recordings and photographs from performances." },
+  contact: { title: "Contact", intro: "For bookings, collaborations, or inquiries." }
+};
+
+const hu: Translations = {
+  nav: { about: "Rólam", repertoire: "Repertoár", media: "Média", contact: "Kapcsolat" },
+  hero: { tagline: "Szoprán", ctaRepertoire: "Repertoár", ctaContact: "Kapcsolat" },
+  about: {
+    title: "Rólam",
+    bio: [
+      "Elek Petra szoprán művész, aki fellépéseit a zene mély megértése és erőteljes színpadi jelenlét jellemzi.",
+      "A Liszt Ferenc Zeneművészeti Egyetem elvégzése után számos operett és koncert repertoárban bizonyított.",
+      "A szólófellépések mellett aktív érdeklődést mutat a kamarazene és a közös projektek iránt."
+    ],
+    highlights: "Pályafutásom"
+  },
+  repertoire: { title: "Repertoár", intro: "Válogatás a klasszikus repertoárból." },
+  media: { title: "Média", intro: "Felvételek és fotók fellépésekről." },
+  contact: { title: "Kapcsolat", intro: "Fellépések, együttműködések, érdeklődés." }
+};
+
+type Lang = "en" | "hu";
+
+const LanguageContext = createContext<{
   t: Translations;
-}
+  lang: Lang;
+  setLang: (l: Lang) => void;
+}>({ t: en, lang: "en", setLang: () => {} });
 
-const LanguageContext = createContext<LanguageContextType | null>(null);
-
-export function useLanguage() {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error("useLanguage must be used within LanguageProvider");
-  }
-  return context;
-}
+export const useLanguage = () => useContext(LanguageContext);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>("en");
-
+  const [lang, setLang] = useState<Lang>("en");
+  const t = lang === "en" ? en : hu;
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>
+    <LanguageContext.Provider value={{ t, lang, setLang }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -1,45 +1,30 @@
 import type { Metadata } from "next";
-import { Crimson_Pro, Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond, Crimson_Pro } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/components/LanguageContext";
+
+const cormorant = Cormorant_Garamond({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-display"
+});
 
 const crimson = Crimson_Pro({
   subsets: ["latin"],
-  display: "swap",
-  variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-display",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  display: "swap", 
+  variable: "--font-body"
 });
 
 export const metadata: Metadata = {
-  title: "Elek Petra — Classical Musician",
-  description: "Official website of Elek Petra, classical musician and performer.",
-  keywords: ["classical music", "musician", "performer", "chamber music", "orchestral"],
-  authors: [{ name: "Elek Petra" }],
-  openGraph: {
-    title: "Elek Petra — Classical Musician",
-    description: "Official website of Elek Petra, classical musician and performer.",
-    type: "website",
-    locale: "en_US",
-  },
+  title: "Elek Petra — Soprano",
+  description: "Official website of Elek Petra, classical soprano.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${crimson.variable} ${cormorant.variable}`}>
-      <body>
-        <LanguageProvider>{children}</LanguageProvider>
-      </body>
+    <html lang="en" className={`${cormorant.variable} ${crimson.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
