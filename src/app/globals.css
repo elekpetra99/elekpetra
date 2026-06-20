@@ -26,6 +26,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -35,10 +36,13 @@ body {
   font-size: 20px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* Sections fill viewport */
+/* Sections fill viewport and snap */
 main > section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
