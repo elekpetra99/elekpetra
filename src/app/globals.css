@@ -456,3 +456,46 @@ input::placeholder, textarea::placeholder {
   transform-origin: left;
   animation: revealLine 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Responsive visibility */
+.desktop-nav {
+  display: none;
+}
+
+.mobile-nav {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex;
+  }
+  .mobile-nav {
+    display: none;
+  }
+  .hero-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .hero-text-order {
+    order: 1;
+  }
+  .hero-portrait-order {
+    order: 2;
+  }
+}
+
+/* Hero grid */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-text-col {
+  grid-column: span 6;
+}
+
+.hero-portrait-col {
+  grid-column: span 6;
+}

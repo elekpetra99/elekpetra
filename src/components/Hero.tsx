@@ -9,9 +9,9 @@ export function Hero() {
   return (
     <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: "5rem" }}>
       <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="hero-grid">
           {/* Text content */}
-          <div className="lg:col-span-6 order-2 lg:order-1">
+          <div className="hero-text-col hero-text-order">
             <AnimatedSection animation="fadeUp" delay={0} aboveFold>
               <p className="section-subtitle">
                 {t.hero.tagline}
@@ -71,7 +71,7 @@ export function Hero() {
           </div>
 
           {/* Portrait */}
-          <div className="lg:col-span-6 order-1 lg:order-2">
+          <div className="hero-portrait-col hero-portrait-order">
             <AnimatedSection animation="scaleIn" delay={0} aboveFold>
               <div style={{ position: "relative" }}>
                 <div className="portrait-frame">

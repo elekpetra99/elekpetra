@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatedSection } from "@/components/AnimatedSection";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/components/LanguageContext";
 import { useState } from "react";
@@ -53,7 +52,7 @@ export function Header() {
         </a>
 
         {/* Desktop nav */}
-        <div style={{ display: "none" }} className="md:flex">
+        <div className="desktop-nav" style={{ alignItems: "center", gap: "2rem" }}>
           {navItems.map((item) => (
             <a
               key={item.href}
@@ -64,20 +63,17 @@ export function Header() {
                 textTransform: "uppercase",
                 color: "var(--foreground)",
                 textDecoration: "none",
-                marginLeft: "2rem",
                 transition: "color 0.3s ease",
               }}
             >
               {item.label}
             </a>
           ))}
-          <div style={{ marginLeft: "2rem" }}>
-            <LanguageSwitcher />
-          </div>
+          <LanguageSwitcher />
         </div>
 
         {/* Mobile menu */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }} className="md:hidden">
+        <div className="mobile-nav" style={{ alignItems: "center", gap: "1rem" }}>
           <LanguageSwitcher />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -104,7 +100,6 @@ export function Header() {
             borderTop: "1px solid var(--border)",
             padding: "1rem clamp(1.5rem, 4vw, 3rem)",
           }}
-          className="md:hidden"
         >
           {navItems.map((item) => (
             <a
