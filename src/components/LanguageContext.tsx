@@ -63,14 +63,14 @@ const translations: Record<Language, Translations> = {
       contact: "Contact",
     },
     hero: {
-      tagline: "Classical Musician",
+      tagline: "Soprano",
       ctaRepertoire: "Explore Repertoire",
       ctaContact: "Get in Touch",
       portraitAlt: "Elek Petra portrait",
     },
     about: {
       title: "About",
-      highlights: "Highlights",
+      highlights: "Career Highlights",
       bio1: "[Background, education, training. Replace with actual content.]",
       bio2: "[Artistic philosophy, approach to music, key influences.]",
       bio3: "[Notable achievements, collaborations, current activities.]",
@@ -112,14 +112,14 @@ const translations: Record<Language, Translations> = {
       contact: "Kapcsolat",
     },
     hero: {
-      tagline: "Klasszikus Zenész",
+      tagline: "Szoprán",
       ctaRepertoire: "Repertoár",
       ctaContact: "Kapcsolat",
       portraitAlt: "Elek Petra portré",
     },
     about: {
       title: "Bemutatkozás",
-      highlights: "Kiemelések",
+      highlights: "Karrier Kiemelések",
       bio1: "[Háttér, tanulmányok, képzés. Cserélje ki a tényleges tartalomra.]",
       bio2: "[Művészeti filozófia, zenei megközelítés, hatások.]",
       bio3: "[Kiemelkedő eredmények, együttműködések, jelenlegi tevékenységek.]",

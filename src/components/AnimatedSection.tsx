@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
-  animation?: "fadeUp" | "fadeIn" | "scaleIn";
+  animation?: "fadeUp" | "fadeIn" | "scaleIn" | "slideRight";
   delay?: number;
   threshold?: number;
   /**
@@ -87,6 +87,8 @@ export function AnimatedSection({
         base.transform = "translateY(30px)";
       } else if (animation === "scaleIn") {
         base.transform = "scale(0.98)";
+      } else if (animation === "slideRight") {
+        base.transform = "translateX(-30px)";
       }
     }
 
