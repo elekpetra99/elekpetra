@@ -2,15 +2,23 @@
 
 import { useLanguage } from "@/components/LanguageContext";
 
-const highlights = [
+const highlightsEn = [
   { year: "2024", event: "Solo recital at Budapest Spring Festival" },
   { year: "2023", event: "Premiere of newly commissioned work by contemporary Hungarian composer" },
   { year: "2022", event: "International debut at Vienna Musikverein" },
   { year: "2021", event: "First prize winner at the International Vocal Competition in Prague" },
 ];
 
+const highlightsHu = [
+  { year: "2024", event: "Szólóest a Budapesti Tavaszi Fesztiválon" },
+  { year: "2023", event: "Kortárs magyar zeneszerző új művének bemutatója" },
+  { year: "2022", event: "Nemzetközi debüt a Bécsi Musikvereinban" },
+  { year: "2021", event: "Első díj a prágai Nemzetközi Énekversenyen" },
+];
+
 export function About() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const highlights = lang === "en" ? highlightsEn : highlightsHu;
 
   return (
     <section id="about">

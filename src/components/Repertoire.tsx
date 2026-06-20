@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/components/LanguageContext";
 
-const repertoire = [
+const repertoireEn = [
   { title: "Four Last Songs", composer: "R. Strauss" },
   { title: "Wesendonck-Lieder", composer: "R. Wagner" },
   { title: "Frauenliebe und -leben", composer: "R. Schumann" },
@@ -13,8 +13,20 @@ const repertoire = [
   { title: "Das Buch der hängenden Gärten", composer: "A. Schönberg" },
 ];
 
+const repertoireHu = [
+  { title: "Vier letzte Lieder", composer: "R. Strauss" },
+  { title: "Wesendonck-Lieder", composer: "R. Wagner" },
+  { title: "Frauenliebe und -leben", composer: "R. Schumann" },
+  { title: "Dichterliebe", composer: "R. Schumann" },
+  { title: "Gymnopédies", composer: "E. Satie (átirat)" },
+  { title: "Magyar népdalok", composer: "B. Bartók" },
+  { title: "Mélodies passagères", composer: "S. Barber" },
+  { title: "Das Buch der hängenden Gärten", composer: "A. Schönberg" },
+];
+
 export function Repertoire() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const repertoire = lang === "en" ? repertoireEn : repertoireHu;
 
   return (
     <section id="repertoire" className="section-alt">

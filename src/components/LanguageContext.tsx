@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Translations = {
   nav: { about: string; repertoire: string; media: string; contact: string };
@@ -51,12 +51,30 @@ const LanguageContext = createContext<{
   t: Translations;
   lang: Lang;
   setLang: (l: Lang) => void;
-}>({ t: en, lang: "en", setLang: () => {} });
+}>({ t: hu, lang: "hu", setLang: () => {} });
 
 export const useLanguage = () => useContext(LanguageContext);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLangState] = useState<Lang>("hu");
+
+  // Initialize from URL param on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get("lang");
+    if (urlLang === "en" || urlLang === "hu") {
+      setLangState(urlLang);
+    }
+  }, []);
+
+  // Update URL when language changes
+  const setLang = (newLang: Lang) => {
+    setLangState(newLang);
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", newLang);
+    window.history.replaceState({}, "", url.toString());
+  };
+
   const t = lang === "en" ? en : hu;
   return (
     <LanguageContext.Provider value={{ t, lang, setLang }}>
