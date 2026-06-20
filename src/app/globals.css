@@ -26,7 +26,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -39,10 +38,8 @@ body {
   overflow-x: hidden;
 }
 
-/* Sections fill viewport and snap */
+/* Sections fill viewport */
 main > section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
