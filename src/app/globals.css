@@ -24,7 +24,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
 
 body {
   background: var(--cream);
@@ -33,6 +36,20 @@ body {
   font-size: 20px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Scroll snap container */
+main {
+  scroll-snap-type: y mandatory;
+}
+
+/* Each section snaps */
+main > section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 600px) {
@@ -201,7 +218,6 @@ nav {
 
 /* ===== HERO ===== */
 .hero {
-  min-height: 100vh;
   padding-top: 60px;
 }
 
@@ -382,6 +398,7 @@ section {
   padding: var(--section-gap) 1.25rem;
   max-width: var(--content-width);
   margin: 0 auto;
+  width: 100%;
 }
 
 @media (min-width: 768px) {
