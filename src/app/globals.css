@@ -543,6 +543,8 @@ p {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  transition: padding-left 0.2s ease;
+  cursor: default;
 }
 
 @media (min-width: 600px) {
@@ -552,6 +554,10 @@ p {
     align-items: baseline;
     gap: 1rem;
   }
+}
+
+.repertoire-item:hover {
+  padding-left: 0.5rem;
 }
 
 .repertoire-title {

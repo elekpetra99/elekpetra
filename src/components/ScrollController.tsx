@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 export function ScrollController() {
   const isScrolling = useRef(false);
-  const lastScrollTime = useRef(0);
+  const currentSection = useRef(0);
 
   useEffect(() => {
     const sections = ["hero", "about", "repertoire", "media", "contact"];
@@ -14,33 +14,27 @@ export function ScrollController() {
       
       const element = document.getElementById(sections[index]);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        currentSection.current = index;
+        window.scrollTo({
+          top: element.offsetTop,
+          behavior: "smooth"
+        });
       }
-    };
-
-    const getCurrentSection = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      return Math.round(scrollY / windowHeight);
     };
 
     // Handle wheel scroll
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
+      e.stopPropagation();
       
-      const now = Date.now();
-      const timeSinceLastScroll = now - lastScrollTime.current;
-      
-      // Debounce - prevent rapid scrolling
-      if (isScrolling.current || timeSinceLastScroll < 800) return;
+      // Prevent rapid scrolling
+      if (isScrolling.current) return;
       
       const direction = e.deltaY > 0 ? 1 : -1;
-      const currentSection = getCurrentSection();
-      const nextSection = currentSection + direction;
+      const nextSection = currentSection.current + direction;
       
       if (nextSection >= 0 && nextSection < sections.length) {
         isScrolling.current = true;
-        lastScrollTime.current = now;
         scrollToSection(nextSection);
         
         setTimeout(() => {
@@ -54,30 +48,58 @@ export function ScrollController() {
       const target = e.target as HTMLAnchorElement;
       if (target.tagName === "A" && target.hash) {
         const sectionId = target.hash.slice(1);
-        if (sections.includes(sectionId)) {
+        const index = sections.indexOf(sectionId);
+        if (index !== -1) {
           e.preventDefault();
-          const element = document.getElementById(sectionId);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-            
-            // Close mobile nav if open
-            const mobileNav = document.querySelector(".mobile-nav") as HTMLElement;
-            if (mobileNav) {
-              mobileNav.classList.remove("open");
-            }
+          scrollToSection(index);
+          
+          // Close mobile nav if open
+          const mobileNav = document.querySelector(".mobile-nav") as HTMLElement;
+          if (mobileNav) {
+            mobileNav.classList.remove("open");
           }
         }
       }
     };
 
-    // Passive wheel for better performance, but we need to prevent default
-    // So we use non-passive
+    // Handle touch events for mobile
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isScrolling.current) return;
+      
+      const touchEndY = e.changedTouches[0].clientY;
+      const diff = touchStartY - touchEndY;
+      
+      // Minimum swipe distance
+      if (Math.abs(diff) < 50) return;
+      
+      const direction = diff > 0 ? 1 : -1;
+      const nextSection = currentSection.current + direction;
+      
+      if (nextSection >= 0 && nextSection < sections.length) {
+        isScrolling.current = true;
+        scrollToSection(nextSection);
+        
+        setTimeout(() => {
+          isScrolling.current = false;
+        }, 800);
+      }
+    };
+
     window.addEventListener("wheel", handleWheel, { passive: false });
     document.addEventListener("click", handleNavClick);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
       document.removeEventListener("click", handleNavClick);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, []);
 
