@@ -19,41 +19,71 @@ function NavContent() {
       <nav>
         <a href="#" className="logo">Elek Petra</a>
         
+        {/* Desktop navigation */}
         <div className="nav-links">
           {navItems.map((item) => (
             <a key={item.href} href={item.href}>{item.label}</a>
           ))}
-          <button 
-            onClick={() => setLang(lang === "en" ? "hu" : "en")}
-            style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.875rem", fontWeight: lang === "en" ? 600 : 400, color: lang === "en" ? "var(--burgundy)" : "var(--warm-gray)" }}
-          >
-            EN
-          </button>
-          <span style={{ color: "var(--stone)" }}>/</span>
-          <button 
-            onClick={() => setLang(lang === "hu" ? "en" : "hu")}
-            style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.875rem", fontWeight: lang === "hu" ? 600 : 400, color: lang === "hu" ? "var(--burgundy)" : "var(--warm-gray)" }}
-          >
-            HU
-          </button>
+          <div className="lang-switch">
+            <button 
+              onClick={() => setLang("en")}
+              className={lang === "en" ? "active" : ""}
+            >
+              EN
+            </button>
+            <span>/</span>
+            <button 
+              onClick={() => setLang("hu")}
+              className={lang === "hu" ? "active" : ""}
+            >
+              HU
+            </button>
+          </div>
         </div>
 
-        <button className="mobile-menu-btn" onClick={() => setMobileOpen(!mobileOpen)}>
+        {/* Mobile menu button */}
+        <button 
+          className="mobile-menu-btn" 
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
           <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+            {mobileOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+            )}
           </svg>
         </button>
       </nav>
 
-      {mobileOpen && (
-        <div className="mobile-nav mobile-open">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setMobileOpen(false)}>
-              {item.label}
-            </a>
-          ))}
+      {/* Mobile dropdown */}
+      <div className={`mobile-nav ${mobileOpen ? "open" : ""}`}>
+        {navItems.map((item) => (
+          <a 
+            key={item.href} 
+            href={item.href} 
+            onClick={() => setMobileOpen(false)}
+          >
+            {item.label}
+          </a>
+        ))}
+        <div className="lang-switch" style={{ marginTop: "1rem", justifyContent: "center" }}>
+          <button 
+            onClick={() => setLang("en")}
+            className={lang === "en" ? "active" : ""}
+          >
+            EN
+          </button>
+          <span>/</span>
+          <button 
+            onClick={() => setLang("hu")}
+            className={lang === "hu" ? "active" : ""}
+          >
+            HU
+          </button>
         </div>
-      )}
+      </div>
     </>
   );
 }
