@@ -24,7 +24,7 @@ const en: Translations = {
     highlights: "Career Highlights"
   },
   repertoire: { title: "Repertoire", intro: "A selection of works from the classical repertoire." },
-  media: { title: "Media", intro: "Recordings and photographs from performances." },
+  media: { title: "Media", intro: "" },
   contact: { title: "Contact", intro: "For bookings, collaborations, or inquiries." }
 };
 
@@ -41,7 +41,7 @@ const hu: Translations = {
     highlights: "Pályafutásom"
   },
   repertoire: { title: "Repertoár", intro: "Válogatás a klasszikus repertoárból." },
-  media: { title: "Média", intro: "Felvételek és fotók fellépésekről." },
+  media: { title: "Média", intro: "" },
   contact: { title: "Kapcsolat", intro: "Fellépések, együttműködések, érdeklődés." }
 };
 
