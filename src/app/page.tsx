@@ -20,13 +20,13 @@ function HeroContent() {
   return (
     <section className="hero">
       <div className="hero-grid">
-        {/* Image first */}
+        {/* Image first on mobile and desktop */}
         <div className="hero-image">
           <img 
             src="/portrait.jpg" 
             alt="Elek Petra" 
-            width={1024}
-            height={1365}
+            width={1600}
+            height={2133}
           />
         </div>
         

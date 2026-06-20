@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { LanguageProvider, useLanguage } from "@/components/LanguageContext";
+import { useLanguage } from "@/components/LanguageContext";
 
 function NavContent() {
   const { t, lang, setLang } = useLanguage();
@@ -44,8 +44,9 @@ function NavContent() {
         {/* Mobile menu button */}
         <button 
           className="mobile-menu-btn" 
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={(e) => { e.preventDefault(); setMobileOpen(!mobileOpen); }}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
           <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileOpen ? (
@@ -90,10 +91,8 @@ function NavContent() {
 
 export function Header() {
   return (
-    <LanguageProvider>
-      <header>
-        <NavContent />
-      </header>
-    </LanguageProvider>
+    <header>
+      <NavContent />
+    </header>
   );
 }
