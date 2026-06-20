@@ -17,61 +17,113 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--cream)] border-b border-[var(--border)]">
-      <nav className="container flex items-center justify-between h-16">
-        <AnimatedSection animation="fadeIn" aboveFold>
-          <a href="#" className="font-[family-name:var(--font-display)] text-2xl tracking-tight hover:text-[var(--burgundy)] transition-colors">
-            Elek Petra
-          </a>
-        </AnimatedSection>
+    <header
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        backgroundColor: "var(--cream)",
+        borderBottom: "1px solid var(--border)",
+      }}
+    >
+      <nav
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "64px",
+          maxWidth: "var(--content-width)",
+          margin: "0 auto",
+          padding: "0 clamp(1.5rem, 4vw, 3rem)",
+        }}
+      >
+        <a
+          href="#"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.5rem",
+            letterSpacing: "-0.02em",
+            color: "var(--foreground)",
+            textDecoration: "none",
+          }}
+        >
+          Elek Petra
+        </a>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item, i) => (
-            <AnimatedSection key={item.href} animation="fadeIn" delay={i + 1} aboveFold>
-              <a
-                href={item.href}
-                className="text-sm tracking-widest uppercase text-[var(--foreground)] hover:text-[var(--burgundy)] transition-colors cursor-pointer"
-              >
-                {item.label}
-              </a>
-            </AnimatedSection>
+        <div style={{ display: "none" }} className="md:flex">
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              style={{
+                fontSize: "0.875rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--foreground)",
+                textDecoration: "none",
+                marginLeft: "2rem",
+                transition: "color 0.3s ease",
+              }}
+            >
+              {item.label}
+            </a>
           ))}
-          <AnimatedSection animation="fadeIn" delay={4} aboveFold>
+          <div style={{ marginLeft: "2rem" }}>
             <LanguageSwitcher />
-          </AnimatedSection>
+          </div>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="flex items-center gap-4 md:hidden">
+        {/* Mobile menu */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }} className="md:hidden">
           <LanguageSwitcher />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 hover:text-[var(--burgundy)] transition-colors cursor-pointer"
+            style={{
+              padding: "0.5rem",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
             aria-label="Menu"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg style={{ width: "1.5rem", height: "1.5rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu dropdown */}
+      {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="md:hidden bg-[var(--cream)] border-t border-[var(--border)]">
-          <div className="container py-4 space-y-4">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="block text-sm tracking-widest uppercase text-[var(--foreground)] hover:text-[var(--burgundy)] transition-colors cursor-pointer"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
+        <div
+          style={{
+            backgroundColor: "var(--cream)",
+            borderTop: "1px solid var(--border)",
+            padding: "1rem clamp(1.5rem, 4vw, 3rem)",
+          }}
+          className="md:hidden"
+        >
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: "block",
+                fontSize: "0.875rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--foreground)",
+                textDecoration: "none",
+                padding: "0.75rem 0",
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
       )}
     </header>
