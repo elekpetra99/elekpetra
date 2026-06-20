@@ -10,14 +10,14 @@ export function Contact() {
       <div className="contact-grid">
         <div className="contact-info">
           <h2>{t.contact.title}</h2>
-          <p style={{ marginTop: "1rem", marginBottom: "2rem" }}>{t.contact.intro}</p>
+          <p>{t.contact.intro}</p>
           
-          <div style={{ marginBottom: "2rem" }}>
+          <div className="contact-block">
             <h3>Email</h3>
-            <a href="mailto:petra@elekpetra.hu" style={{ fontSize: "1.25rem" }}>petra@elekpetra.hu</a>
+            <a href="mailto:petra@elekpetra.hu">petra@elekpetra.hu</a>
           </div>
           
-          <div style={{ marginBottom: "2rem" }}>
+          <div className="contact-block">
             <h3>Social</h3>
             <div className="contact-links">
               <a href="#">Instagram</a>
@@ -26,14 +26,14 @@ export function Contact() {
             </div>
           </div>
           
-          <div>
+          <div className="contact-block">
             <h3>Management</h3>
-            <p style={{ marginBottom: "0.5rem" }}>For concerts and collaborations.</p>
+            <p>For concerts and collaborations.</p>
             <a href="mailto:management@elekpetra.hu">management@elekpetra.hu</a>
           </div>
         </div>
         
-        <div>
+        <div className="contact-form">
           <form>
             <label>Name</label>
             <input type="text" />

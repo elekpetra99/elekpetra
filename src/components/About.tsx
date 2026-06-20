@@ -14,20 +14,21 @@ export function About() {
 
   return (
     <section id="about">
-      <h2>{t.about.title}</h2>
-      {t.about.bio.map((p, i) => <p key={i}>{p}</p>)}
-      
-      <h3 style={{ marginTop: "2rem", fontSize: "0.875rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--warm-gray)" }}>
-        {t.about.highlights}
-      </h3>
-      
-      <div style={{ marginTop: "1.5rem" }}>
-        {highlights.map((h, i) => (
-          <div key={i} style={{ padding: "1rem 0", borderLeft: "2px solid var(--stone)", paddingLeft: "1rem", marginBottom: "0.5rem" }}>
-            <span style={{ fontSize: "0.875rem", color: "var(--burgundy)", fontWeight: 500 }}>{h.year}</span>
-            <span style={{ display: "block", marginTop: "0.25rem" }}>{h.event}</span>
-          </div>
-        ))}
+      <div className="about-grid">
+        <div className="about-text">
+          <h2>{t.about.title}</h2>
+          {t.about.bio.slice(0, 2).map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+        
+        <div className="about-highlights">
+          <h3>{t.about.highlights}</h3>
+          {highlights.map((h, i) => (
+            <div key={i} className="highlight-item">
+              <span className="highlight-year">{h.year}</span>
+              <span className="highlight-text">{h.event}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

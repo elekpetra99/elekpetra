@@ -18,9 +18,9 @@ export function Repertoire() {
 
   return (
     <section id="repertoire" className="section-alt">
-      <div>
+      <div className="repertoire-grid">
         <h2>{t.repertoire.title}</h2>
-        <p style={{ marginTop: "1.5rem", marginBottom: "2rem", maxWidth: "60ch" }}>{t.repertoire.intro}</p>
+        <p className="repertoire-intro">{t.repertoire.intro}</p>
         
         <div className="repertoire-list">
           {repertoire.map((item, i) => (
