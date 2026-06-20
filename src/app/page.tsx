@@ -7,6 +7,7 @@ import { Repertoire } from "@/components/Repertoire";
 import { Media } from "@/components/Media";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { ScrollController } from "@/components/ScrollController";
 
 function HeroContent() {
   const { t, lang } = useLanguage();
@@ -18,7 +19,7 @@ function HeroContent() {
   ];
 
   return (
-    <section className="hero">
+    <section id="hero">
       <div className="hero-grid">
         {/* Image first on mobile and desktop */}
         <div className="hero-image">
@@ -66,6 +67,7 @@ function HeroContent() {
 export default function Home() {
   return (
     <LanguageProvider>
+      <ScrollController />
       <Header />
       <main>
         <HeroContent />
