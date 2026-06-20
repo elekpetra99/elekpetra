@@ -26,7 +26,7 @@ export function Hero() {
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={2} aboveFold>
-              <p className="lead mb-12">
+              <p className="lead mb-12 mt-8">
                 {lang === "hu" 
                   ? "A klasszikus repertoár mély értelmezése és a zenei történet mesélt megértése jellemzi fellépéseimet. A hangversenytermek intimitását és a színpadi jelenlét erőteljességét keresem minden előadásban."
                   : "With a deep commitment to the classical repertoire and a nuanced understanding of musical storytelling, I bring both intimate concert experiences and powerful stage presence to every performance."
