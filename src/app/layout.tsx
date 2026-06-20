@@ -17,13 +17,13 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Petra — Classical Musician",
-  description: "Official website of Petra, classical musician and performer.",
+  title: "[Full Name] — Classical Musician",
+  description: "Official website of [Full Name], classical musician and performer.",
   keywords: ["classical music", "musician", "performer", "chamber music", "orchestral"],
-  authors: [{ name: "Petra" }],
+  authors: [{ name: "[Full Name]" }],
   openGraph: {
-    title: "Petra — Classical Musician",
-    description: "Official website of Petra, classical musician and performer.",
+    title: "[Full Name] — Classical Musician",
+    description: "Official website of [Full Name], classical musician and performer.",
     type: "website",
     locale: "en_US",
   },

@@ -17,14 +17,13 @@ export function Hero() {
 
             <AnimatedSection animation="fadeUp" delay={1}>
               <h1 className="mb-6">
-                <span className="block">Petra</span>
+                <span className="block">[Full Name]</span>
               </h1>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={2}>
-              <p className="text-xl text-[var(--warm-gray)] mb-8 max-w-lg leading-relaxed">
-                Passionate about bringing classical works to life through 
-                nuanced interpretation and expressive performance.
+              <p className="text-xl text-[var(--muted)] mb-8 max-w-lg leading-relaxed">
+                [Short tagline or bio statement about your musical practice and artistic approach.]
               </p>
             </AnimatedSection>
 
@@ -44,6 +43,8 @@ export function Hero() {
           <div className="order-1 lg:order-2">
             <AnimatedSection animation="scaleIn" delay={1}>
               <div className="portrait-frame shadow-2xl">
+                {/* Replace this div with an actual image */}
+                {/* <img src="/portrait.jpg" alt="[Full Name]" className="w-full h-full object-cover" /> */}
                 <div className="absolute inset-0 flex items-center justify-center text-[var(--muted)]">
                   <span className="text-sm tracking-widest uppercase">Portrait</span>
                 </div>

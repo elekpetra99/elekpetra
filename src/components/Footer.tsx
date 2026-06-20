@@ -4,10 +4,10 @@ export function Footer() {
       <div className="container">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[var(--muted)]">
           <div className="font-[family-name:var(--font-display)] text-lg text-[var(--foreground)]">
-            Petra
+            [Full Name]
           </div>
           <div className="text-center sm:text-left">
-            © {new Date().getFullYear()} Petra. All rights reserved.
+            © {new Date().getFullYear()} [Full Name]. All rights reserved.
           </div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-[var(--burgundy)] transition-colors">

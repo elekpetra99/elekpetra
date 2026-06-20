@@ -19,10 +19,23 @@ export function AnimatedSection({
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     const element = ref.current;
     if (!element) return;
+
+    // Check if already in viewport (for above-fold content)
+    const rect = element.getBoundingClientRect();
+    const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+    
+    if (isInViewport) {
+      // Small delay to allow initial render
+      const timer = setTimeout(() => setIsVisible(true), delay * 100 + 50);
+      return () => clearTimeout(timer);
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -31,13 +44,13 @@ export function AnimatedSection({
           observer.unobserve(element);
         }
       },
-      { threshold }
+      { threshold, rootMargin: "50px" }
     );
 
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, delay]);
 
   const animationClass = {
     fadeUp: "animate-fade-up",
@@ -45,42 +58,17 @@ export function AnimatedSection({
     scaleIn: "animate-scale-in",
   }[animation];
 
-  const delayClass = delay > 0 ? `delay-${Math.min(delay, 5)}` : "";
+  // Show content immediately if JS is disabled or before hydration
+  // Animation only hides content if JS successfully loads
+  const shouldAnimate = mounted && !isVisible;
 
   return (
     <div
       ref={ref}
-      className={`${className} ${isVisible ? animationClass : "opacity-0"}`}
-      style={delay > 0 ? { animationDelay: `${delay * 100}ms` } : undefined}
+      className={`${className} ${isVisible ? animationClass : shouldAnimate ? "opacity-0" : ""}`}
+      style={delay > 0 && isVisible ? { animationDelay: `${delay * 100}ms` } : undefined}
     >
       {children}
     </div>
   );
-}
-
-export function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        } else {
-          setIsInView(false);
-        }
-      },
-      { threshold }
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, isInView };
 }
