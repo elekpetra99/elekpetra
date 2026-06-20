@@ -26,17 +26,17 @@ function NavContent() {
           ))}
           <div className="lang-switch">
             <button 
-              onClick={() => setLang("en")}
-              className={lang === "en" ? "active" : ""}
-            >
-              EN
-            </button>
-            <span>/</span>
-            <button 
               onClick={() => setLang("hu")}
               className={lang === "hu" ? "active" : ""}
             >
               HU
+            </button>
+            <span>/</span>
+            <button 
+              onClick={() => setLang("en")}
+              className={lang === "en" ? "active" : ""}
+            >
+              EN
             </button>
           </div>
         </div>
@@ -71,17 +71,17 @@ function NavContent() {
         ))}
         <div className="lang-switch" style={{ marginTop: "1rem", justifyContent: "center" }}>
           <button 
-            onClick={() => setLang("en")}
-            className={lang === "en" ? "active" : ""}
-          >
-            EN
-          </button>
-          <span>/</span>
-          <button 
             onClick={() => setLang("hu")}
             className={lang === "hu" ? "active" : ""}
           >
             HU
+          </button>
+          <span>/</span>
+          <button 
+            onClick={() => setLang("en")}
+            className={lang === "en" ? "active" : ""}
+          >
+            EN
           </button>
         </div>
       </div>

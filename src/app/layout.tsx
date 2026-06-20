@@ -17,8 +17,8 @@ const crimson = Crimson_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Elek Petra — Soprano",
-  description: "Official website of Elek Petra, classical soprano.",
+  title: "Petra Elek — Soprano",
+  description: "Official website of Petra Elek, classical soprano.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
