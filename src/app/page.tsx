@@ -24,7 +24,7 @@ function HeroContent() {
         {/* Image first on mobile and desktop */}
         <div className="hero-image">
           <img 
-            src="/portrait.jpg" 
+            src="/portrait.jpg?v=2" 
             alt="Elek Petra" 
             width={1600}
             height={2133}
