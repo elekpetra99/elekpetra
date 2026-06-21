@@ -261,6 +261,7 @@ nav {
   object-fit: cover;
   object-position: top center;
   display: block;
+  filter: saturate(0.92) brightness(1.03) contrast(1.02);
 }
 
 @media (min-width: 768px) {
