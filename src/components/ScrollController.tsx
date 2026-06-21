@@ -5,8 +5,9 @@ import { useLanguage } from "@/components/LanguageContext";
 
 export function ScrollController() {
   const { lang } = useLanguage();
-  const isScrolling = useRef(false);
   const currentSection = useRef(0);
+  const isScrolling = useRef(false);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Update document title when language changes
   useEffect(() => {
@@ -15,89 +16,145 @@ export function ScrollController() {
 
   useEffect(() => {
     const sections = ["hero", "about", "repertoire", "media", "contact"];
-    
+    const sectionVisibility = new Map<string, number>();
+
+    // Track which section is most visible using IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          sectionVisibility.set(entry.target.id, entry.intersectionRatio);
+        });
+
+        // Find section with highest visibility
+        let maxRatio = 0;
+        let mostVisibleSection = sections[currentSection.current];
+        
+        sectionVisibility.forEach((ratio, id) => {
+          if (ratio > maxRatio && sections.includes(id)) {
+            maxRatio = ratio;
+            mostVisibleSection = id;
+          }
+        });
+
+        const newIndex = sections.indexOf(mostVisibleSection);
+        if (newIndex !== -1 && !isScrolling.current) {
+          currentSection.current = newIndex;
+        }
+      },
+      {
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+      }
+    );
+
+    // Observe all sections
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    // Smooth scroll to section
     const scrollToSection = (index: number) => {
       if (index < 0 || index >= sections.length) return;
-      
+
       const element = document.getElementById(sections[index]);
-      if (element) {
-        currentSection.current = index;
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      if (!element) return;
+
+      currentSection.current = index;
+      isScrolling.current = true;
+
+      element.scrollIntoView({ behavior: "smooth" });
+
+      // Reset scroll lock after animation
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        isScrolling.current = false;
+      }, 800);
     };
 
     // Wheel scroll - intercept and snap to section
     const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      if (isScrolling.current) return;
-      
+      // Allow normal scroll for small deltas or if already scrolling
+      if (isScrolling.current) {
+        e.preventDefault();
+        return;
+      }
+
       const direction = e.deltaY > 0 ? 1 : -1;
       const nextSection = currentSection.current + direction;
-      
+
+      // Only intercept if there's a clear section to snap to
       if (nextSection >= 0 && nextSection < sections.length) {
-        isScrolling.current = true;
-        scrollToSection(nextSection);
-        
-        setTimeout(() => {
-          isScrolling.current = false;
-        }, 800);
+        // Check if the current section is mostly in view
+        const currentEl = document.getElementById(sections[currentSection.current]);
+        if (currentEl) {
+          const rect = currentEl.getBoundingClientRect();
+          const visibility = rect.height > 0 ? 
+            Math.max(0, Math.min(1, 
+              (Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)) / rect.height
+            )) : 0;
+
+          // Only snap if current section is mostly visible (> 50%)
+          if (visibility > 0.5) {
+            e.preventDefault();
+            scrollToSection(nextSection);
+          }
+        }
       }
     };
 
     // Touch swipe for mobile
     let touchStartY = 0;
     let touchStartX = 0;
-    
+    let touchStartTime = 0;
+
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY = e.touches[0].clientY;
       touchStartX = e.touches[0].clientX;
+      touchStartTime = Date.now();
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
       if (isScrolling.current) return;
-      
+
       const touchEndY = e.changedTouches[0].clientY;
       const touchEndX = e.changedTouches[0].clientX;
+      const timeDiff = Date.now() - touchStartTime;
       const diffY = touchStartY - touchEndY;
       const diffX = touchStartX - touchEndX;
-      
-      // Only trigger if vertical swipe is dominant
-      if (Math.abs(diffY) < 50 || Math.abs(diffX) > Math.abs(diffY)) return;
-      
+
+      // Only trigger if:
+      // 1. Vertical swipe is dominant
+      // 2. Swipe is long enough (> 50px)
+      // 3. Swipe is fast enough (< 500ms)
+      if (Math.abs(diffY) < 50 || Math.abs(diffX) > Math.abs(diffY) || timeDiff > 500) {
+        return;
+      }
+
       const direction = diffY > 0 ? 1 : -1;
       const nextSection = currentSection.current + direction;
-      
+
       if (nextSection >= 0 && nextSection < sections.length) {
-        isScrolling.current = true;
         scrollToSection(nextSection);
-        
-        setTimeout(() => {
-          isScrolling.current = false;
-        }, 800);
       }
     };
 
     // Keyboard navigation
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isScrolling.current) return;
-      
+
       let direction = 0;
-      if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") direction = 1;
-      else if (e.key === "ArrowUp" || e.key === "PageUp") direction = -1;
-      
+      if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") {
+        direction = 1;
+      } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+        direction = -1;
+      }
+
       if (direction !== 0) {
         e.preventDefault();
         const nextSection = currentSection.current + direction;
-        
+
         if (nextSection >= 0 && nextSection < sections.length) {
-          isScrolling.current = true;
           scrollToSection(nextSection);
-          
-          setTimeout(() => {
-            isScrolling.current = false;
-          }, 800);
         }
       }
     };
@@ -112,7 +169,7 @@ export function ScrollController() {
         if (index !== -1) {
           e.preventDefault();
           scrollToSection(index);
-          
+
           const mobileNav = document.querySelector(".mobile-nav") as HTMLElement;
           if (mobileNav) mobileNav.classList.remove("open");
         }
@@ -126,6 +183,8 @@ export function ScrollController() {
     document.addEventListener("click", handleNavClick);
 
     return () => {
+      observer.disconnect();
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
