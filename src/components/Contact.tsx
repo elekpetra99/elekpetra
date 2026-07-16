@@ -28,7 +28,7 @@ export function Contact() {
   const c = content[lang];
 
   return (
-    <section id="contact" className="section-alt">
+    <section id="contact" className="section-alt" tabIndex={-1} aria-label={t.contact.title}>
       <div className="contact-grid">
         <div className="contact-info">
           <h2>{t.contact.title}</h2>

@@ -25,7 +25,7 @@ export function Media() {
   const mediaItems = lang === "en" ? mediaItemsEn : mediaItemsHu;
 
   return (
-    <section id="media">
+    <section id="media" tabIndex={-1} aria-label={t.media.title}>
       <div className="media-content">
         <h2>{t.media.title}</h2>
         {t.media.intro && <p className="media-intro">{t.media.intro}</p>}

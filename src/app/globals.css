@@ -26,6 +26,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 60px; /* offset for fixed header */
 }
 
 body {
@@ -38,7 +39,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Sections fill viewport */
+/* Sections fill viewport — leave room for fixed header */
 main > section {
   min-height: 100vh;
   min-height: 100dvh;
@@ -46,6 +47,18 @@ main > section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  scroll-margin-top: 60px; /* offset for fixed header when scrolling to section */
+}
+
+/* Non-hero sections account for header height in their min-height */
+main > section:not(#hero) {
+  min-height: calc(100vh - 60px);
+  min-height: calc(100dvh - 60px);
+}
+
+/* Respect reduced motion — disable smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 @media (max-width: 600px) {

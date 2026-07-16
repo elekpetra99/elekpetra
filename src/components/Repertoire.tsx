@@ -29,7 +29,7 @@ export function Repertoire() {
   const repertoire = lang === "en" ? repertoireEn : repertoireHu;
 
   return (
-    <section id="repertoire" className="section-alt">
+    <section id="repertoire" className="section-alt" tabIndex={-1} aria-label={t.repertoire.title}>
       <div className="repertoire-grid">
         <h2>{t.repertoire.title}</h2>
         <p className="repertoire-intro">{t.repertoire.intro}</p>

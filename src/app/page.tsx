@@ -19,7 +19,7 @@ function HeroContent() {
   ];
 
   return (
-    <section id="hero">
+    <section id="hero" tabIndex={-1} aria-label="Hero">
       <div className="hero-grid">
         {/* Image first on mobile and desktop */}
         <div className="hero-image">

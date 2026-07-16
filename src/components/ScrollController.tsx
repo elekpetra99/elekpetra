@@ -7,7 +7,7 @@ export function ScrollController() {
   const { lang } = useLanguage();
   const currentSection = useRef(0);
   const isScrolling = useRef(false);
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Update document title when language changes
   useEffect(() => {
@@ -17,6 +17,11 @@ export function ScrollController() {
   useEffect(() => {
     const sections = ["hero", "about", "repertoire", "media", "contact"];
     const sectionVisibility = new Map<string, number>();
+
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
     // Track which section is most visible using IntersectionObserver
     const observer = new IntersectionObserver(
@@ -28,7 +33,7 @@ export function ScrollController() {
         // Find section with highest visibility
         let maxRatio = 0;
         let mostVisibleSection = sections[currentSection.current];
-        
+
         sectionVisibility.forEach((ratio, id) => {
           if (ratio > maxRatio && sections.includes(id)) {
             maxRatio = ratio;
@@ -62,13 +67,25 @@ export function ScrollController() {
       currentSection.current = index;
       isScrolling.current = true;
 
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+
+      // Move focus to the section for screen reader accessibility
+      // preventScroll avoids double-scroll in browsers that support it
+      element.focus({ preventScroll: true });
 
       // Reset scroll lock after animation
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         isScrolling.current = false;
-      }, 800);
+      }, prefersReducedMotion ? 100 : 800);
+    };
+
+    // Check if a section's content overflows beyond the viewport
+    const sectionOverflows = (sectionEl: HTMLElement) => {
+      return sectionEl.scrollHeight > window.innerHeight + 60;
     };
 
     // Wheel scroll - intercept and snap to section
@@ -79,25 +96,61 @@ export function ScrollController() {
         return;
       }
 
+      const currentEl = document.getElementById(
+        sections[currentSection.current]
+      );
+      if (!currentEl) return;
+
+      // If current section content overflows the viewport, allow normal
+      // scrolling within it until we reach the top/bottom boundary
+      if (sectionOverflows(currentEl)) {
+        const rect = currentEl.getBoundingClientRect();
+        const scrollingDown = e.deltaY > 0;
+
+        // At the top of section scrolling up → snap to previous
+        if (!scrollingDown && rect.top >= -1) {
+          e.preventDefault();
+          const prevSection = currentSection.current - 1;
+          if (prevSection >= 0) scrollToSection(prevSection);
+          return;
+        }
+
+        // At the bottom of section scrolling down → snap to next
+        if (scrollingDown && rect.bottom <= window.innerHeight + 1) {
+          e.preventDefault();
+          const nextSection = currentSection.current + 1;
+          if (nextSection < sections.length) scrollToSection(nextSection);
+          return;
+        }
+
+        // Otherwise let the browser scroll normally within the section
+        return;
+      }
+
       const direction = e.deltaY > 0 ? 1 : -1;
       const nextSection = currentSection.current + direction;
 
       // Only intercept if there's a clear section to snap to
       if (nextSection >= 0 && nextSection < sections.length) {
-        // Check if the current section is mostly in view
-        const currentEl = document.getElementById(sections[currentSection.current]);
-        if (currentEl) {
-          const rect = currentEl.getBoundingClientRect();
-          const visibility = rect.height > 0 ? 
-            Math.max(0, Math.min(1, 
-              (Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)) / rect.height
-            )) : 0;
+        // Check if the current section is mostly in view (> 50%)
+        const rect = currentEl.getBoundingClientRect();
+        const visibility =
+          rect.height > 0
+            ? Math.max(
+                0,
+                Math.min(
+                  1,
+                  (Math.min(rect.bottom, window.innerHeight) -
+                    Math.max(rect.top, 0)) /
+                    rect.height
+                )
+              )
+            : 0;
 
-          // Only snap if current section is mostly visible (> 50%)
-          if (visibility > 0.5) {
-            e.preventDefault();
-            scrollToSection(nextSection);
-          }
+        // Only snap if current section is mostly visible (> 50%)
+        if (visibility > 0.5) {
+          e.preventDefault();
+          scrollToSection(nextSection);
         }
       }
     };
@@ -147,6 +200,14 @@ export function ScrollController() {
         direction = 1;
       } else if (e.key === "ArrowUp" || e.key === "PageUp") {
         direction = -1;
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        scrollToSection(0);
+        return;
+      } else if (e.key === "End") {
+        e.preventDefault();
+        scrollToSection(sections.length - 1);
+        return;
       }
 
       if (direction !== 0) {

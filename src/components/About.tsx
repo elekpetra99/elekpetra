@@ -21,7 +21,7 @@ export function About() {
   const highlights = lang === "en" ? highlightsEn : highlightsHu;
 
   return (
-    <section id="about">
+    <section id="about" tabIndex={-1} aria-label={t.about.title}>
       <div className="about-grid">
         <div className="about-text">
           <h2>{t.about.title}</h2>
