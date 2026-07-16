@@ -23,6 +23,33 @@ export function ScrollController() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
+    // Use visualViewport for accurate height on mobile (address bar show/hide)
+    const getViewportHeight = () => {
+      if (window.visualViewport) {
+        return window.visualViewport.height;
+      }
+      return window.innerHeight;
+    };
+
+    // Track current viewport height, updated on resize (address bar, orientation)
+    let viewportHeight = getViewportHeight();
+    const updateViewportHeight = () => {
+      viewportHeight = getViewportHeight();
+    };
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener(
+        "resize",
+        updateViewportHeight
+      );
+      window.visualViewport.addEventListener(
+        "scroll",
+        updateViewportHeight
+      );
+    } else {
+      window.addEventListener("resize", updateViewportHeight);
+    }
+
     // Track which section is most visible using IntersectionObserver
     const observer = new IntersectionObserver(
       (entries) => {
@@ -85,7 +112,7 @@ export function ScrollController() {
 
     // Check if a section's content overflows beyond the viewport
     const sectionOverflows = (sectionEl: HTMLElement) => {
-      return sectionEl.scrollHeight > window.innerHeight + 60;
+      return sectionEl.scrollHeight > viewportHeight + 60;
     };
 
     // Wheel scroll - intercept and snap to section
@@ -116,7 +143,7 @@ export function ScrollController() {
         }
 
         // At the bottom of section scrolling down → snap to next
-        if (scrollingDown && rect.bottom <= window.innerHeight + 1) {
+        if (scrollingDown && rect.bottom <= viewportHeight + 1) {
           e.preventDefault();
           const nextSection = currentSection.current + 1;
           if (nextSection < sections.length) scrollToSection(nextSection);
@@ -132,7 +159,7 @@ export function ScrollController() {
 
       // Only intercept if there's a clear section to snap to
       if (nextSection >= 0 && nextSection < sections.length) {
-        // Check if the current section is mostly in view (> 50%)
+        // Only snap if current section is mostly visible (> 50%)
         const rect = currentEl.getBoundingClientRect();
         const visibility =
           rect.height > 0
@@ -140,7 +167,7 @@ export function ScrollController() {
                 0,
                 Math.min(
                   1,
-                  (Math.min(rect.bottom, window.innerHeight) -
+                  (Math.min(rect.bottom, viewportHeight) -
                     Math.max(rect.top, 0)) /
                     rect.height
                 )
@@ -180,6 +207,32 @@ export function ScrollController() {
       // 2. Swipe is long enough (> 50px)
       // 3. Swipe is fast enough (< 500ms)
       if (Math.abs(diffY) < 50 || Math.abs(diffX) > Math.abs(diffY) || timeDiff > 500) {
+        return;
+      }
+
+      // If current section overflows, allow internal scrolling before snapping
+      const currentEl = document.getElementById(
+        sections[currentSection.current]
+      );
+      if (currentEl && sectionOverflows(currentEl)) {
+        const rect = currentEl.getBoundingClientRect();
+        const scrollingDown = diffY > 0;
+
+        // At the top of section scrolling up → snap to previous
+        if (!scrollingDown && rect.top >= -1) {
+          const prevSection = currentSection.current - 1;
+          if (prevSection >= 0) scrollToSection(prevSection);
+          return;
+        }
+
+        // At the bottom of section scrolling down → snap to next
+        if (scrollingDown && rect.bottom <= viewportHeight + 1) {
+          const nextSection = currentSection.current + 1;
+          if (nextSection < sections.length) scrollToSection(nextSection);
+          return;
+        }
+
+        // Otherwise let the browser scroll normally within the section
         return;
       }
 
@@ -251,6 +304,18 @@ export function ScrollController() {
       window.removeEventListener("touchend", handleTouchEnd);
       window.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("click", handleNavClick);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener(
+          "resize",
+          updateViewportHeight
+        );
+        window.visualViewport.removeEventListener(
+          "scroll",
+          updateViewportHeight
+        );
+      } else {
+        window.removeEventListener("resize", updateViewportHeight);
+      }
     };
   }, []);
 

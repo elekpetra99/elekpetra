@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Crimson_Pro } from "next/font/google";
 import "./globals.css";
 
@@ -19,6 +19,13 @@ const crimson = Crimson_Pro({
 export const metadata: Metadata = {
   title: "Petra Elek — Soprano",
   description: "Official website of Petra Elek, classical soprano.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
