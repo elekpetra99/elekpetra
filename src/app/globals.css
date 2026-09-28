@@ -605,10 +605,11 @@ p {
   -webkit-touch-callout: none;
 }
 
-/* Bottom 4 gallery images: focus near top edge (faces often near top) */
-.gallery-photo-focus-top {
-  object-position: center 8%;
-}
+/* Per-slot crop focus (user-specified) */
+.gallery-photo-f8 { object-position: center 8%; }
+.gallery-photo-f10 { object-position: center 10%; }
+.gallery-photo-f20 { object-position: center 20%; }
+.gallery-photo-f50 { object-position: center 50%; }
 
 .gallery-overlay {
   position: absolute;
