@@ -65,6 +65,15 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (urlLang === "en" || urlLang === "hu") {
       setLangState(urlLang);
     }
+    // Strip stale #hash from refreshes so the browser doesn't jump to a section
+    // on second render (mobile pull-to-refresh preserves the hash).
+    if (window.location.hash) {
+      const url = new URL(window.location.href);
+      url.hash = "";
+      window.history.replaceState({}, "", url.toString());
+      // restore scroll position the browser saved for the reload
+      window.scrollTo({ top: 0 });
+    }
   }, []);
 
   // Update URL when language changes
