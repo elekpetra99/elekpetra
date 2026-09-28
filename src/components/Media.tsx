@@ -2,25 +2,29 @@
 
 import { useLanguage } from "@/components/LanguageContext";
 
-const galleryImages = [
-  { src: "/gallery-01.jpg", orientation: "landscape" },
-  { src: "/gallery-02.jpg", orientation: "portrait" },
-  { src: "/gallery-03.jpg", orientation: "portrait" },
-  { src: "/gallery-04.jpg", orientation: "portrait" },
-  { src: "/gallery-05.jpg", orientation: "portrait" },
-  { src: "/gallery-06.jpg", orientation: "portrait" },
-  { src: "/gallery-07.jpg", orientation: "landscape", placeholder: true },
-  { src: "/gallery-08.jpg", orientation: "portrait" },
-  { src: "/gallery-09.jpg", orientation: "portrait" },
-  { src: "/gallery-10.jpg", orientation: "portrait", placeholder: true },
-  { src: "/gallery-11.jpg", orientation: "portrait", placeholder: true },
-  { src: "/gallery-12.jpg", orientation: "landscape" },
+interface GalleryImage {
+  src: string;
+  caption: string;
+  orientation: "portrait" | "landscape";
+}
+
+const galleryImages: GalleryImage[] = [
+  { src: "/gallery-01.jpg", caption: "placeholder", orientation: "portrait" },
+  { src: "/gallery-02.jpg", caption: "placeholder", orientation: "portrait" },
+  { src: "/gallery-03.jpg", caption: "placeholder", orientation: "portrait" },
+  { src: "/gallery-04.jpg", caption: "Kvintesszencia 2024/25", orientation: "portrait" },
+  { src: "/gallery-05.jpg", caption: "Kvintesszencia 2024/25", orientation: "portrait" },
+  { src: "/gallery-06.jpg", caption: "Kvintesszencia 2024/25", orientation: "landscape" },
+  { src: "/gallery-07.jpg", caption: "Kvintesszencia 2024/25", orientation: "portrait" },
+  { src: "/gallery-08.jpg", caption: "Kvintesszencia 2024/25", orientation: "portrait" },
+  { src: "/gallery-09.jpg", caption: "Kvintesszencia 2024/25", orientation: "landscape" },
+  { src: "/gallery-10.jpg", caption: "Kvintesszencia Mesteriskola 2025/26", orientation: "portrait" },
+  { src: "/gallery-11.jpg", caption: "Kvintesszencia Mesteriskola 2025/26", orientation: "portrait" },
+  { src: "/gallery-12.jpg", caption: "Kvintesszencia Mesteriskola 2025/26", orientation: "landscape" },
 ];
 
 export function Media() {
-  const { t, lang } = useLanguage();
-  const caption =
-    lang === "en" ? "Kvintesszencia 2024/25" : "Kvintesszencia 2024/25";
+  const { t } = useLanguage();
 
   return (
     <section id="media" tabIndex={-1} aria-label={t.media.title}>
@@ -33,14 +37,16 @@ export function Media() {
             <div key={i} className="gallery-item">
               <img
                 src={img.src}
-                alt={`Elek Petra — ${caption}`}
+                alt={`Elek Petra — ${img.caption === "placeholder" ? "Gallery" : img.caption}`}
                 className="gallery-photo"
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
               />
-              <div className="gallery-overlay">
-                <div className="gallery-title">{caption}</div>
-              </div>
+              {img.caption !== "placeholder" && (
+                <div className="gallery-overlay">
+                  <div className="gallery-title">{img.caption}</div>
+                </div>
+              )}
             </div>
           ))}
         </div>
