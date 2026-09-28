@@ -25,7 +25,7 @@ const en: Translations = {
   },
   repertoire: { title: "Repertoire", intro: "A selection of works from the classical repertoire." },
   media: { title: "Media", intro: "" },
-  contact: { title: "Contact", intro: "For bookings, collaborations, or inquiries." }
+  contact: { title: "Contact", intro: "For bookings and collaborations." }
 };
 
 const hu: Translations = {
@@ -42,7 +42,7 @@ const hu: Translations = {
   },
   repertoire: { title: "Repertoár", intro: "Válogatás a klasszikus repertoárból." },
   media: { title: "Média", intro: "" },
-  contact: { title: "Kapcsolat", intro: "Fellépések, együttműködések, érdeklődés." }
+  contact: { title: "Kapcsolat", intro: "Fellépések és együttműködések." }
 };
 
 type Lang = "en" | "hu";

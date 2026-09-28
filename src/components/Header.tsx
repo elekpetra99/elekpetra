@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { useLanguage } from "@/components/LanguageContext";
 
 function NavContent() {
   const { t, lang, setLang } = useLanguage();
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems = [
     { href: "#about", label: t.nav.about },
@@ -15,64 +13,16 @@ function NavContent() {
   ];
 
   return (
-    <>
-      <nav>
-        <a href="#" className="logo">Elek Petra</a>
-        
-        {/* Desktop navigation */}
-        <div className="nav-links">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>{item.label}</a>
-          ))}
-          <div className="lang-switch">
-            <button 
-              type="button"
-              onClick={() => setLang("hu")}
-              className={lang === "hu" ? "active" : ""}
-            >
-              HU
-            </button>
-            <span>/</span>
-            <button 
-              type="button"
-              onClick={() => setLang("en")}
-              className={lang === "en" ? "active" : ""}
-            >
-              EN
-            </button>
-          </div>
-        </div>
+    <nav>
+      <a href="#" className="logo">Elek Petra</a>
 
-        {/* Mobile menu button */}
-        <button 
-          className="mobile-menu-btn" 
-          onClick={(e) => { e.preventDefault(); setMobileOpen(!mobileOpen); }}
-          aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-        >
-          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {mobileOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
-      </nav>
-
-      {/* Mobile dropdown */}
-      <div className={`mobile-nav ${mobileOpen ? "open" : ""}`}>
+      {/* Desktop navigation */}
+      <div className="nav-links">
         {navItems.map((item) => (
-          <a 
-            key={item.href} 
-            href={item.href} 
-            onClick={() => setMobileOpen(false)}
-          >
-            {item.label}
-          </a>
+          <a key={item.href} href={item.href}>{item.label}</a>
         ))}
-        <div className="lang-switch" style={{ marginTop: "1rem", justifyContent: "center" }}>
-          <button 
+        <div className="lang-switch">
+          <button
             type="button"
             onClick={() => setLang("hu")}
             className={lang === "hu" ? "active" : ""}
@@ -80,7 +30,7 @@ function NavContent() {
             HU
           </button>
           <span>/</span>
-          <button 
+          <button
             type="button"
             onClick={() => setLang("en")}
             className={lang === "en" ? "active" : ""}
@@ -89,7 +39,17 @@ function NavContent() {
           </button>
         </div>
       </div>
-    </>
+
+      {/* Mobile: single toggle showing the other language */}
+      <button
+        type="button"
+        className="mobile-lang-btn"
+        onClick={() => setLang(lang === "hu" ? "en" : "hu")}
+        aria-label={lang === "hu" ? "Switch to English" : "Váltás magyarra"}
+      >
+        {lang === "hu" ? "EN" : "HU"}
+      </button>
+    </nav>
   );
 }
 

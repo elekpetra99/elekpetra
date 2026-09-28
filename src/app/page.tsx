@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { LanguageProvider, useLanguage } from "@/components/LanguageContext";
 import { Header } from "@/components/Header";
 import { About } from "@/components/About";
@@ -7,7 +8,6 @@ import { Repertoire } from "@/components/Repertoire";
 import { Media } from "@/components/Media";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { ScrollController } from "@/components/ScrollController";
 
 function HeroContent() {
   const { t, lang } = useLanguage();
@@ -64,10 +64,21 @@ function HeroContent() {
   );
 }
 
+function TitleManager() {
+  const { lang } = useLanguage();
+
+  // Update document title when language changes
+  useEffect(() => {
+    document.title = lang === "en" ? "Petra Elek — Soprano" : "Elek Petra — Szoprán";
+  }, [lang]);
+
+  return null;
+}
+
 export default function Home() {
   return (
     <LanguageProvider>
-      <ScrollController />
+      <TitleManager />
       <Header />
       <main>
         <HeroContent />
