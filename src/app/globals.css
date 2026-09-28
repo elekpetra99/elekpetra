@@ -605,9 +605,9 @@ p {
   -webkit-touch-callout: none;
 }
 
-/* Bottom 4 gallery images: focus on upper fourth (faces often near top) */
+/* Bottom 4 gallery images: focus near top edge (faces often near top) */
 .gallery-photo-focus-top {
-  object-position: center 25%;
+  object-position: center 8%;
 }
 
 .gallery-overlay {

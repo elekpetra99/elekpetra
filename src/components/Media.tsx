@@ -8,15 +8,14 @@ interface GalleryImage {
 }
 
 const galleryImages: GalleryImage[] = [
-  { src: "/gallery-01.jpg", caption: "Kvintesszencia Mesteriskola 2025/26" },
-  { src: "/gallery-02.jpg", caption: "Kvintesszencia Mesteriskola 2025/26" },
-  { src: "/gallery-03.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-04.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-05.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-06.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-07.jpg", caption: null }, // new photo — caption pending
-  { src: "/gallery-08.jpg", caption: null }, // new photo — caption pending
-  { src: "/gallery-09.jpg", caption: null }, // new photo — caption pending
+  { src: "/gallery-01.jpg?v=2", caption: "Kvintesszencia Mesteriskola 2025/26" },
+  { src: "/gallery-02.jpg?v=2", caption: "Kvintesszencia Mesteriskola 2025/26" },
+  { src: "/gallery-03.jpg?v=2", caption: "Kvintesszencia 2024/25" },
+  { src: "/gallery-04.jpg?v=2", caption: "Kvintesszencia 2024/25" },
+  { src: "/gallery-05.jpg?v=2", caption: "Kvintesszencia 2024/25" },
+  { src: "/gallery-06.jpg?v=2", caption: null }, // new photo — caption pending
+  { src: "/gallery-07.jpg?v=2", caption: null }, // new photo — caption pending
+  { src: "/gallery-08.jpg?v=2", caption: null }, // new photo — caption pending
 ];
 
 export function Media() {
