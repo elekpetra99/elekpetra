@@ -9,11 +9,11 @@ const galleryImages = [
   { src: "/gallery-04.jpg", orientation: "portrait" },
   { src: "/gallery-05.jpg", orientation: "portrait" },
   { src: "/gallery-06.jpg", orientation: "portrait" },
-  { src: "/gallery-07.jpg", orientation: "landscape" },
+  { src: "/gallery-07.jpg", orientation: "landscape", placeholder: true },
   { src: "/gallery-08.jpg", orientation: "portrait" },
   { src: "/gallery-09.jpg", orientation: "portrait" },
-  { src: "/gallery-10.jpg", orientation: "portrait" },
-  { src: "/gallery-11.jpg", orientation: "portrait" },
+  { src: "/gallery-10.jpg", orientation: "portrait", placeholder: true },
+  { src: "/gallery-11.jpg", orientation: "portrait", placeholder: true },
   { src: "/gallery-12.jpg", orientation: "landscape" },
 ];
 
