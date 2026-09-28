@@ -15,19 +15,19 @@ const galleryImages: GalleryImage[] = [
   { src: "/gallery-05.jpg", caption: "Kvintesszencia Mesteriskola 2025/26" },
   { src: "/gallery-06.jpg", caption: "Kvintesszencia 2024/25" },
   { src: "/gallery-07.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-08.jpg", caption: "Kvintesszencia 2024/25" },
+  { src: "/gallery-08.jpg", caption: null }, // duplicate — replace with new photo
   { src: "/gallery-09.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-10.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-11.jpg", caption: "Kvintesszencia 2024/25" },
+  { src: "/gallery-10.jpg", caption: null }, // duplicate — replace with new photo
+  { src: "/gallery-11.jpg", caption: null }, // duplicate — replace with new photo
   { src: "/gallery-12.jpg", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-13.jpg", caption: null }, // Google Photos batch — caption pending
-  { src: "/gallery-14.jpg", caption: null },
-  { src: "/gallery-15.jpg", caption: null },
-  { src: "/gallery-16.jpg", caption: null },
-  { src: "/gallery-17.jpg", caption: null },
-  { src: "/gallery-18.jpg", caption: null },
-  { src: "/gallery-19.jpg", caption: null },
-  { src: "/gallery-20.jpg", caption: null },
+  { src: "/gallery-13.jpg", caption: null }, // duplicate — replace with new photo
+  { src: "/gallery-14.jpg", caption: null }, // Google Photos batch — caption pending
+  { src: "/gallery-15.jpg", caption: null }, // Google Photos batch — caption pending
+  { src: "/gallery-16.jpg", caption: null }, // duplicate — replace with new photo
+  { src: "/gallery-17.jpg", caption: null }, // duplicate — replace with new photo
+  { src: "/gallery-18.jpg", caption: null }, // duplicate — replace with new photo
+  { src: "/gallery-19.jpg", caption: null }, // Google Photos batch — caption pending
+  { src: "/gallery-20.jpg", caption: null }, // duplicate — replace with new photo
 ];
 
 export function Media() {
@@ -45,7 +45,7 @@ export function Media() {
               <img
                 src={img.src}
                 alt={img.caption ? `Elek Petra — ${img.caption}` : "Elek Petra — Gallery"}
-                className="gallery-photo"
+                className={`gallery-photo${i >= galleryImages.length - 4 ? " gallery-photo-focus-top" : ""}`}
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
               />

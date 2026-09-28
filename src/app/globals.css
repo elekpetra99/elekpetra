@@ -653,6 +653,11 @@ p {
   -webkit-touch-callout: none;
 }
 
+/* Bottom 4 gallery images: focus on upper fourth (faces often near top) */
+.gallery-photo-focus-top {
+  object-position: center 25%;
+}
+
 .gallery-overlay {
   position: absolute;
   bottom: 0;
