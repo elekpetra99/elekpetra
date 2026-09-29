@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { About } from "@/components/About";
 import { Repertoire } from "@/components/Repertoire";
 import { Media } from "@/components/Media";
+import { Videos } from "@/components/Videos";
 import { Articles } from "@/components/Articles";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -71,6 +72,7 @@ export default function Home() {
         <About />
         <Repertoire />
         <Media />
+        <Videos />
         <Articles />
         <Contact />
       </main>

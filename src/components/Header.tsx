@@ -9,6 +9,7 @@ function NavContent() {
     { href: "#about", label: t.nav.about },
     { href: "#repertoire", label: t.nav.masterclasses },
     { href: "#media", label: t.nav.media },
+    { href: "#videos", label: t.nav.videos },
     { href: "#articles", label: t.nav.articles },
     { href: "#contact", label: t.nav.contact },
   ];
