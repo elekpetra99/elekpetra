@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Translations = {
-  nav: { about: string; masterclasses: string; media: string; contact: string };
+  nav: { about: string; masterclasses: string; media: string; articles: string; contact: string };
   hero: { tagline: string; ctaMasterclasses: string; ctaContact: string };
   about: {
     title: string;
@@ -18,7 +18,7 @@ type Translations = {
 };
 
 const en: Translations = {
-  nav: { about: "About", masterclasses: "Masterclasses", media: "Media", contact: "Contact" },
+  nav: { about: "About", masterclasses: "Masterclasses", media: "Media", articles: "Articles", contact: "Contact" },
   hero: { tagline: "Soprano", ctaMasterclasses: "Masterclasses", ctaContact: "Get in Touch" },
   about: {
     title: "About",
@@ -37,7 +37,7 @@ const en: Translations = {
 };
 
 const hu: Translations = {
-  nav: { about: "Rólam", masterclasses: "Mesterkurzusok", media: "Média", contact: "Kapcsolat" },
+  nav: { about: "Rólam", masterclasses: "Mesterkurzusok", media: "Média", articles: "Cikkek", contact: "Kapcsolat" },
   hero: { tagline: "Szoprán", ctaMasterclasses: "Mesterkurzusok", ctaContact: "Kapcsolat" },
   about: {
     title: "Rólam",
