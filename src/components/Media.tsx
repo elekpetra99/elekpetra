@@ -22,14 +22,14 @@ const galleryImages: GalleryImage[] = [
 // Per-slot crop focus (user-specified, mobile 2-col grid positions)
 // 2-col layout: col1 = 01,03,05,07 / col2 = 02,04,06,08
 const focusMap: (string | null)[] = [
-  "gallery-photo-f10", // 01 — 10%
-  "gallery-photo-f8", // 02 — 8%
-  "gallery-photo-f8", // 03 — 8% (1col2 up)
-  "gallery-photo-f8", // 04 — 8%
-  "gallery-photo-f50", // 05 — 50% (1col3 down)
-  "gallery-photo-f20", // 06 — 20%
-  "gallery-photo-f25", // 07 — 25% (face-centered, measured)
-  "gallery-photo-f20", // 08 — 20%
+  "gallery-photo-fx50-fy44", // 01
+  "gallery-photo-fx49-fy47", // 02
+  "gallery-photo-fx52-fy48", // 03
+  "gallery-photo-fx39-fy35", // 04
+  "gallery-photo-fx45-fy38", // 05
+  "gallery-photo-fx50-fy44", // 06
+  "gallery-photo-fx27-fy28", // 07
+  "gallery-photo-fx51-fy44", // 08
 ];
 
 // Per-slot crop focus (see focusMap above)

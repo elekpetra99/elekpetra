@@ -634,13 +634,14 @@ p {
   -webkit-touch-callout: none;
 }
 
-/* Per-slot crop focus (user-specified) */
-.gallery-photo-f8 { object-position: center 8%; }
-.gallery-photo-f10 { object-position: center 10%; }
-.gallery-photo-f20 { object-position: center 20%; }
-.gallery-photo-f25 { object-position: center 25%; }
-.gallery-photo-f50 { object-position: center 50%; }
-.gallery-photo-f70 { object-position: center 70%; }
+/* Per-slot crop focus (face-measured, x% y%) */
+.gallery-photo-fx50-fy44 { object-position: 50% 44%; }
+.gallery-photo-fx49-fy47 { object-position: 49% 47%; }
+.gallery-photo-fx52-fy48 { object-position: 52% 48%; }
+.gallery-photo-fx39-fy35 { object-position: 39% 35%; }
+.gallery-photo-fx45-fy38 { object-position: 45% 38%; }
+.gallery-photo-fx27-fy28 { object-position: 27% 28%; }
+.gallery-photo-fx51-fy44 { object-position: 51% 44%; }
 
 .gallery-overlay {
   position: absolute;
