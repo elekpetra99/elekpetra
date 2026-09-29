@@ -25,9 +25,9 @@ const focusMap: (string | null)[] = [
   "gallery-photo-fx50-fy44", // 01
   "gallery-photo-fx49-fy47", // 02
   "gallery-photo-fx52-fy48", // 03
-  "gallery-photo-fx39-fy35", // 04
-  "gallery-photo-fx45-fy38", // 05
-  "gallery-photo-fx50-fy44", // 06
+  "gallery-photo-fx39-fy27", // 04
+  "gallery-photo-fx45-fy30", // 05
+  "gallery-photo-fx50-fy36", // 06
   "gallery-photo-fx27-fy28", // 07
   "gallery-photo-fx51-fy44", // 08
 ];
