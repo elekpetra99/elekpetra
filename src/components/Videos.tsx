@@ -32,6 +32,13 @@ const videos: Video[] = [
     meta: "KvintEsszencia Mesteriskola",
     metaEn: "KvintEsszencia Masterclass",
   },
+  {
+    id: "sxM38mWL7G8",
+    title: "Az Era Nova Kamarazenekar és Marley Erickson hegedűművész koncertje",
+    titleEn: "Era Nova Chamber Orchestra with violinist Marley Erickson",
+    meta: "Ars Sacra Fesztivál",
+    metaEn: "Ars Sacra Festival",
+  },
 ];
 
 export function Videos() {
