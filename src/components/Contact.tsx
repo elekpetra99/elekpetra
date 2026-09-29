@@ -26,7 +26,7 @@ const content = {
     social: "Közösségi",
     management: "Menedzsment & fellépések",
     sending: "Küldés…",
-    sent: "Köszönjük — üzenete elment.",
+    sent: "Köszönjük — üzenet elküldve.",
     sendError: "Hiba történt, kérjük próbálja újra, vagy írjon a fenti email címre.",
   },
 };
