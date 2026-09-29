@@ -28,7 +28,7 @@ const focusMap: (string | null)[] = [
   "gallery-photo-f8", // 04 — 8%
   "gallery-photo-f50", // 05 — 50% (1col3 down)
   "gallery-photo-f20", // 06 — 20%
-  "gallery-photo-f70", // 07 — 70% (1col4 down)
+  "gallery-photo-f25", // 07 — 25% (face-centered, measured)
   "gallery-photo-f20", // 08 — 20%
 ];
 
