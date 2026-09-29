@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { useLanguage } from "@/components/LanguageContext";
 
 interface GalleryImage {
@@ -34,6 +35,41 @@ const focusMap: (string | null)[] = [
 // Per-slot crop focus (see focusMap above)
 export function Media() {
   const { t } = useLanguage();
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const closeRef = useCallback((node: HTMLDivElement | null) => {
+    node?.focus();
+  }, []);
+
+  const close = useCallback(() => setLightbox(null), []);
+
+  const step = useCallback(
+    (dir: 1 | -1) => {
+      setLightbox((cur) =>
+        cur === null ? cur : (cur + dir + galleryImages.length) % galleryImages.length
+      );
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (lightbox === null) return;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight") step(1);
+      else if (e.key === "ArrowLeft") step(-1);
+    };
+
+    const lock = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = lock;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox, close, step]);
+
+  const current = lightbox === null ? null : galleryImages[lightbox];
 
   return (
     <section id="media" tabIndex={-1} aria-label={t.media.title}>
@@ -43,7 +79,20 @@ export function Media() {
 
         <div className="gallery-grid">
           {galleryImages.map((img, i) => (
-            <div key={i} className="gallery-item">
+            <div
+              key={i}
+              className="gallery-item"
+              role="button"
+              tabIndex={0}
+              aria-label={img.caption ?? "Open photo"}
+              onClick={() => setLightbox(i)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setLightbox(i);
+                }
+              }}
+            >
               <img
                 src={img.src}
                 alt={img.caption ? `Elek Petra — ${img.caption}` : "Elek Petra — Gallery"}
@@ -60,6 +109,54 @@ export function Media() {
           ))}
         </div>
       </div>
+
+      {current && (
+        <div
+          className="lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={current.caption ?? "Photo"}
+          ref={closeRef}
+          tabIndex={-1}
+          onClick={close}
+        >
+          <button
+            type="button"
+            className="lightbox-close"
+            aria-label="Close"
+            onClick={(e) => { e.stopPropagation(); close(); }}
+          >
+            ×
+          </button>
+          <button
+            type="button"
+            className="lightbox-nav lightbox-prev"
+            aria-label="Previous photo"
+            onClick={(e) => { e.stopPropagation(); step(-1); }}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="lightbox-nav lightbox-next"
+            aria-label="Next photo"
+            onClick={(e) => { e.stopPropagation(); step(1); }}
+          >
+            ›
+          </button>
+          {current.caption && (
+            <div className="lightbox-caption">{current.caption}</div>
+          )}
+          <img
+            className="lightbox-img"
+            src={current.src}
+            alt={current.caption ? `Elek Petra — ${current.caption}` : "Elek Petra — Gallery"}
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </section>
   );
 }

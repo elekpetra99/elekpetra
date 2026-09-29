@@ -664,6 +664,72 @@ p {
   margin-bottom: 0.15rem;
 }
 
+/* Lightbox (full-size photo viewer) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(12, 10, 8, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.lightbox-img {
+  max-width: min(94vw, 1600px);
+  max-height: 88vh;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.lightbox button {
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-size: 2.5rem;
+  line-height: 1;
+  padding: 0.5rem 0.9rem;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.lightbox button:hover,
+.lightbox button:focus-visible {
+  opacity: 1;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-prev { left: 0.5rem; }
+.lightbox-next { right: 0.5rem; }
+
 .gallery-meta {
   font-size: 0.75rem;
   opacity: 0.85;
