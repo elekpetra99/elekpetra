@@ -3,7 +3,7 @@
 import { useLanguage } from "@/components/LanguageContext";
 
 const socials = [
-  { name: "Instagram", url: "https://www.instagram.com/elektra.579" },
+  { name: "@elektra.579", url: "https://www.instagram.com/elektra.579" },
 ];
 
 const content = {
