@@ -16,7 +16,7 @@ const masterclassesEn: Masterclass[] = [
 ];
 
 const masterclassesHu: Masterclass[] = [
-  { year: "2025", name: "Ewita's Royal Matercalss", detail: "Eva Katrakova Bodorova" },
+  { year: "2025", name: "Ewita's Royal Masterclass", detail: "Eva Katrakova Bodorova" },
   { year: "2024", name: "Rost Andrea Operaakadémia", detail: "Die Zauberflöte — Die Königin der Nacht" },
   { year: "2024", name: "Alexander Schmalcz kamarazene mesterkurzus" },
   { year: "2023", name: "International Chorakademie", detail: "Rolf Beck" },
