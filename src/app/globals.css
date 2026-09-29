@@ -1,13 +1,14 @@
 :root {
-  --cream: #faf8f5;
-  --cream-dark: #f5f2ed;
-  --stone: #e8e4dd;
-  --warm-gray: #8a857d;
-  --charcoal: #3d3a35;
-  --near-black: #1a1917;
-  --burgundy: #8b4049;
-  --burgundy-light: #a65d58;
-  --burgundy-dark: #6b2f38;
+  /* Palette tuned to hero portrait: deep crimson dress + warm rosé skin tones */
+  --cream: #faf6f0;
+  --cream-dark: #f4ede6;
+  --stone: #e6dcd2;
+  --warm-gray: #8d8177;
+  --charcoal: #43302e;
+  --near-black: #221614;
+  --burgundy: #8a1f2b;
+  --burgundy-light: #a8555f;
+  --burgundy-dark: #5f1219;
   
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Crimson Pro', Georgia, serif;
