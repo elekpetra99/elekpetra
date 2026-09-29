@@ -8,14 +8,14 @@ interface GalleryImage {
 }
 
 const galleryImages: GalleryImage[] = [
-  { src: "/gallery-01.jpg?v=2", caption: "Kvintesszencia Mesteriskola 2025/26" },
-  { src: "/gallery-02.jpg?v=2", caption: "Kvintesszencia Mesteriskola 2025/26" },
-  { src: "/gallery-03.jpg?v=2", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-04.jpg?v=2", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-05.jpg?v=2", caption: "Kvintesszencia 2024/25" },
-  { src: "/gallery-06.jpg?v=2", caption: null }, // new photo — caption pending
-  { src: "/gallery-07.jpg?v=2", caption: null }, // new photo — caption pending
-  { src: "/gallery-08.jpg?v=2", caption: null }, // new photo — caption pending
+  { src: "/gallery-01.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2024/25" },
+  { src: "/gallery-02.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2024/25" },
+  { src: "/gallery-03.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2024/25" },
+  { src: "/gallery-04.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2025/26" },
+  { src: "/gallery-05.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2025/26" },
+  { src: "/gallery-06.jpg?v=3", caption: "PIX Photostudio" },
+  { src: "/gallery-07.jpg?v=3", caption: "PIX Photostudio" },
+  { src: "/gallery-08.jpg?v=3", caption: "PIX Photostudio" },
 ];
 
 // Per-slot crop focus (user-specified, mobile 2-col grid positions)
