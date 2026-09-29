@@ -13,6 +13,7 @@ const content = {
     email: "Email",
     message: "Message",
     social: "Social",
+    management: "Management & Bookings",
   },
   hu: {
     send: "Üzenet küldése",
@@ -20,6 +21,7 @@ const content = {
     email: "Email",
     message: "Üzenet",
     social: "Közösségi",
+    management: "Menedzsment & fellépések",
   },
 };
 
@@ -34,6 +36,11 @@ export function Contact() {
           <h2>{t.contact.title}</h2>
           <p>{t.contact.intro}</p>
           
+          <div className="contact-block">
+            <h3>{c.management}</h3>
+            <a href="mailto:petraelek.management@gmail.com">petraelek.management@gmail.com</a>
+          </div>
+
           <div className="contact-block">
             <h3>{c.social}</h3>
             <div className="contact-links">
