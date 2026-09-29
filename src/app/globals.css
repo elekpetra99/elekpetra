@@ -900,6 +900,48 @@ p {
   margin-top: 0.5rem;
 }
 
+.contact-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.contact-form button[type="submit"][data-state="sending"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.6em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: formSpin 0.8s linear infinite;
+  vertical-align: -0.1em;
+}
+
+@keyframes formSpin {
+  to { transform: rotate(360deg); }
+}
+
+.form-note {
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+  min-height: 1.5em;
+}
+
+.form-note[data-state="ok"] {
+  color: #3f6b3a;
+}
+
+.form-note[data-state="err"] {
+  color: var(--burgundy-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-form button[type="submit"][data-state="sending"]::after {
+    animation: none;
+  }
+}
+
 /* ===== FOOTER ===== */
 footer {
   padding: 2rem 1.25rem;
