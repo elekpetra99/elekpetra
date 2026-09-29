@@ -7,7 +7,7 @@ function NavContent() {
 
   const navItems = [
     { href: "#about", label: t.nav.about },
-    { href: "#repertoire", label: t.nav.repertoire },
+    { href: "#repertoire", label: t.nav.masterclasses },
     { href: "#media", label: t.nav.media },
     { href: "#contact", label: t.nav.contact },
   ];

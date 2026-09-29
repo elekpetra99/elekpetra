@@ -3,44 +3,54 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Translations = {
-  nav: { about: string; repertoire: string; media: string; contact: string };
-  hero: { tagline: string; ctaRepertoire: string; ctaContact: string };
-  about: { title: string; bio: string[]; highlights: string };
-  repertoire: { title: string; intro: string };
+  nav: { about: string; masterclasses: string; media: string; contact: string };
+  hero: { tagline: string; ctaMasterclasses: string; ctaContact: string };
+  about: {
+    title: string;
+    bio: string[];
+    studies: string;
+    collaborations: string;
+    competitions: string;
+  };
+  masterclasses: { title: string; intro: string };
   media: { title: string; intro: string };
   contact: { title: string; intro: string };
 };
 
 const en: Translations = {
-  nav: { about: "About", repertoire: "Repertoire", media: "Media", contact: "Contact" },
-  hero: { tagline: "Soprano", ctaRepertoire: "Explore Repertoire", ctaContact: "Get in Touch" },
+  nav: { about: "About", masterclasses: "Masterclasses", media: "Media", contact: "Contact" },
+  hero: { tagline: "Soprano", ctaMasterclasses: "Masterclasses", ctaContact: "Get in Touch" },
   about: {
     title: "About",
     bio: [
-      "Petra Elek is a soprano whose performances are marked by deep musical insight and compelling dramatic presence.",
-      "After completing her studies at the Liszt Ferenc Academy of Music in Budapest, she has established herself as a versatile artist equally at home in operatic roles and concert repertoire.",
-      "Beyond solo performances, she maintains an active interest in chamber music and collaborative projects."
+      "Petra Elek is a soprano. She completed her BA in Classical Singing (2019–2022) and her MA in Oratorio and Art Song (2022–2024) at the Franz Liszt Academy of Music in Budapest.",
+      "Since 2024 she has been a postgraduate student of the Kvintesszencia Masterclass programme at the University of Pécs, under Erika Miklósa.",
+      "She performs regularly in concerts, festivals and opera productions."
     ],
-    highlights: "Career Highlights"
+    studies: "Studies",
+    collaborations: "Collaborations & Cultural Activities",
+    competitions: "Competitions, Auditions & Results"
   },
-  repertoire: { title: "Repertoire", intro: "A selection of works from the classical repertoire." },
+  masterclasses: { title: "Masterclasses", intro: "Masterclasses and summer academies." },
   media: { title: "Media", intro: "" },
   contact: { title: "Contact", intro: "For bookings and collaborations." }
 };
 
 const hu: Translations = {
-  nav: { about: "Rólam", repertoire: "Repertoár", media: "Média", contact: "Kapcsolat" },
-  hero: { tagline: "Szoprán", ctaRepertoire: "Repertoár", ctaContact: "Kapcsolat" },
+  nav: { about: "Rólam", masterclasses: "Mesterkurzusok", media: "Média", contact: "Kapcsolat" },
+  hero: { tagline: "Szoprán", ctaMasterclasses: "Mesterkurzusok", ctaContact: "Kapcsolat" },
   about: {
     title: "Rólam",
     bio: [
-      "Elek Petra szoprán művész, aki fellépéseit a zene mély megértése és erőteljes színpadi jelenlét jellemzi.",
-      "A Liszt Ferenc Zeneművészeti Egyetem elvégzése után számos operett és koncert repertoárban bizonyított.",
-      "A szólófellépések mellett aktív érdeklődést mutat a kamarazene és a közös projektek iránt."
+      "Elek Petra szoprán. Klasszikus ének (BA, 2019–2022), majd oratórium- és dalének (MA, 2022–2024) szakon szerzett diplomát a Liszt Ferenc Zeneművészeti Egyetemen.",
+      "2024-től a Pécsi Tudományegyetem Kvintesszencia Mesteriskola posztgraduális képzésének hallgatója, Miklósa Erika irányításával.",
+      "Rendszeresen fellép koncerteken, fesztiválokon és operaprodukciókban."
     ],
-    highlights: "Pályafutásom"
+    studies: "Tanulmányok",
+    collaborations: "Együttműködések és kulturális tevékenység",
+    competitions: "Versenyek, meghallgatások, eredmények"
   },
-  repertoire: { title: "Repertoár", intro: "Válogatás a klasszikus repertoárból." },
+  masterclasses: { title: "Mesterkurzusok", intro: "Mesterkurzusok és nyári akadémiák." },
   media: { title: "Média", intro: "" },
   contact: { title: "Kapcsolat", intro: "Fellépések és együttműködések." }
 };

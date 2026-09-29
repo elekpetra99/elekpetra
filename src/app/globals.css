@@ -554,6 +554,34 @@ p {
   color: var(--warm-gray);
 }
 
+/* Masterclass entries: year + stacked name/detail */
+.mc-item {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.15rem;
+  text-align: left;
+}
+
+.mc-year {
+  font-size: 1rem;
+  color: var(--burgundy);
+  font-weight: 600;
+}
+
+.mc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mc-body .repertoire-title {
+  font-style: normal;
+}
+
+.mc-body .repertoire-composer {
+  max-width: 55ch;
+}
+
 /* ===== MEDIA ===== */
 .media-content {
   display: flex;

@@ -12,12 +12,6 @@ import { Footer } from "@/components/Footer";
 function HeroContent() {
   const { t, lang } = useLanguage();
 
-  const stats = [
-    { num: "15+", label: lang === "hu" ? "Év tapasztalat" : "Years Experience" },
-    { num: "50+", label: lang === "hu" ? "Fellépés" : "Performances" },
-    { num: "12", label: lang === "hu" ? "Ország" : "Countries" },
-  ];
-
   return (
     <section id="hero" tabIndex={-1} aria-label="Hero">
       <div className="hero-grid">
@@ -46,17 +40,8 @@ function HeroContent() {
           </p>
           
           <div className="buttons">
-            <a href="#repertoire" className="btn btn-primary">{t.hero.ctaRepertoire}</a>
+            <a href="#repertoire" className="btn btn-primary">{t.hero.ctaMasterclasses}</a>
             <a href="#contact" className="btn btn-secondary">{t.hero.ctaContact}</a>
-          </div>
-          
-          <div className="stats">
-            {stats.map((s, i) => (
-              <div key={i}>
-                <div className="stat-number">{s.num}</div>
-                <div className="stat-label">{s.label}</div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

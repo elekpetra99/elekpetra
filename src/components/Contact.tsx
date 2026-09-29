@@ -4,21 +4,15 @@ import { useLanguage } from "@/components/LanguageContext";
 
 const content = {
   en: {
-    email: "Email",
-    social: "Social",
-    management: "Management",
-    managementNote: "For concerts and collaborations.",
     send: "Send Message",
     name: "Name",
+    email: "Email",
     message: "Message",
   },
   hu: {
-    email: "Email",
-    social: "Közösségi",
-    management: "Menedzsment",
-    managementNote: "Koncertek és együttműködések.",
     send: "Üzenet küldése",
     name: "Név",
+    email: "Email",
     message: "Üzenet",
   },
 };
@@ -33,26 +27,6 @@ export function Contact() {
         <div className="contact-info">
           <h2>{t.contact.title}</h2>
           <p>{t.contact.intro}</p>
-          
-          <div className="contact-block">
-            <h3>{c.email}</h3>
-            <a href="mailto:petra@elekpetra.hu">petra@elekpetra.hu</a>
-          </div>
-          
-          <div className="contact-block">
-            <h3>{c.social}</h3>
-            <div className="contact-links">
-              <a href="#">Instagram</a>
-              <a href="#">YouTube</a>
-              <a href="#">Spotify</a>
-            </div>
-          </div>
-          
-          <div className="contact-block">
-            <h3>{c.management}</h3>
-            <p>{c.managementNote}</p>
-            <a href="mailto:management@elekpetra.hu">management@elekpetra.hu</a>
-          </div>
         </div>
         
         <div className="contact-form">
