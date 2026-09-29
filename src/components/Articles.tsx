@@ -19,7 +19,7 @@ const articlesEn: Article[] = [
       "Visszatér a TehetségKert a VeszprémFestre, de Kőszegen is bemutatkoznak a MOL – Új Európa Alapítvány által támogatott fiatal művészek.",
     url: "https://tenger.media/2026/06/28/tehetsegkert-mol-uj-europa-alapitvany-veszpremfeszt-koszeg",
     date: "2026. június 28.",
-    image: "https://m.blog.hu/te/tengermedia/image/2026/06/ke_pernyo_foto_2026-06-28_14_14_26.png",
+    image: "/articles-tehetsegkert.jpg?v=1",
   },
 ];
 
