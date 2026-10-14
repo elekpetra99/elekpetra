@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/components/LanguageContext";
 
 interface GalleryImage {
@@ -36,11 +36,26 @@ const focusMap: (string | null)[] = [
 export function Media() {
   const { t } = useLanguage();
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  // Element that had focus before the lightbox opened — focus is restored to it on close
+  const lastFocused = useRef<HTMLElement | null>(null);
+
+  const openLightbox = useCallback((i: number) => {
+    lastFocused.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setLightbox(i);
+  }, []);
+
   const closeRef = useCallback((node: HTMLDivElement | null) => {
+    dialogRef.current = node;
     node?.focus();
   }, []);
 
-  const close = useCallback(() => setLightbox(null), []);
+  const close = useCallback(() => {
+    setLightbox(null);
+    lastFocused.current?.focus();
+    lastFocused.current = null;
+  }, []);
 
   const step = useCallback(
     (dir: 1 | -1) => {
@@ -58,6 +73,25 @@ export function Media() {
       if (e.key === "Escape") close();
       else if (e.key === "ArrowRight") step(1);
       else if (e.key === "ArrowLeft") step(-1);
+      else if (e.key === "Tab" && dialogRef.current) {
+        // Focus trap: keep Tab cycling inside the dialog (prevents focusing
+        // page content / background iframes while the modal is open).
+        e.preventDefault();
+        const nodes = Array.from(
+          dialogRef.current.querySelectorAll<HTMLElement>("button")
+        );
+        if (nodes.length === 0) return;
+        const idx = nodes.indexOf(document.activeElement as HTMLElement);
+        let next: HTMLElement;
+        if (idx === -1) {
+          next = e.shiftKey ? nodes[nodes.length - 1] : nodes[0];
+        } else if (e.shiftKey) {
+          next = nodes[(idx - 1 + nodes.length) % nodes.length];
+        } else {
+          next = nodes[(idx + 1) % nodes.length];
+        }
+        next.focus();
+      }
     };
 
     const lock = document.body.style.overflow;
@@ -85,11 +119,11 @@ export function Media() {
               role="button"
               tabIndex={0}
               aria-label={img.caption ?? "Open photo"}
-              onClick={() => setLightbox(i)}
+              onClick={() => openLightbox(i)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  setLightbox(i);
+                  openLightbox(i);
                 }
               }}
             >
@@ -97,6 +131,7 @@ export function Media() {
                 src={img.src}
                 alt={img.caption ? `Elek Petra — ${img.caption}` : "Elek Petra — Gallery"}
                 className={`gallery-photo${focusMap[i] ? ` ${focusMap[i]}` : ""}`}
+                loading="lazy"
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
               />

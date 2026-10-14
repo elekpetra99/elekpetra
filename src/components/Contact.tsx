@@ -40,18 +40,30 @@ export function Contact() {
     const form = e.currentTarget;
     const button = form.querySelector<HTMLButtonElement>("button[type=submit]");
     const note = form.querySelector<HTMLElement>(".form-note");
+    const label = button?.textContent ?? "";
     if (!button || button.disabled) return;
 
     button.disabled = true;
     button.dataset.state = "sending";
+    button.textContent = c.sending;
     if (note) { note.textContent = ""; note.dataset.state = ""; }
+
+    const data = new FormData(form);
+
+    // Honeypot: the hidden "botcheck" field is only filled by bots. Abort
+    // silently with a fake success so bots don't retry — nothing is sent.
+    if (data.get("botcheck")) {
+      form.reset();
+      button.disabled = false;
+      button.dataset.state = "idle";
+      button.textContent = label;
+      if (note) { note.textContent = c.sent; note.dataset.state = "ok"; }
+      return;
+    }
 
     // Runtime-configure via NEXT_PUBLIC env; falls back to graceful error if unset.
     const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-    const data = new FormData(form);
     if (accessKey) data.set("access_key", accessKey);
-    // Honeypot anti-spam (bots fill this hidden field)
-    data.set("botcheck", "");
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -70,6 +82,7 @@ export function Contact() {
     } finally {
       button.disabled = false;
       button.dataset.state = "idle";
+      button.textContent = label;
     }
   }
 

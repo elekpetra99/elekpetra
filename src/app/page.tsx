@@ -15,15 +15,16 @@ function HeroContent() {
   const { t, lang } = useLanguage();
 
   return (
-    <section id="hero" tabIndex={-1} aria-label="Hero">
+    <section id="hero" tabIndex={-1} aria-label={lang === "en" ? "Intro" : "Bemutatkozás"}>
       <div className="hero-grid">
         {/* Image first on mobile and desktop */}
         <div className="hero-image">
           <img 
             src="/portrait.jpg?v=4" 
             alt="Elek Petra" 
-            width={1600}
-            height={2133}
+            width={1067}
+            height={1600}
+            fetchPriority="high"
           />
         </div>
         
@@ -54,9 +55,10 @@ function HeroContent() {
 function TitleManager() {
   const { lang } = useLanguage();
 
-  // Update document title when language changes
+  // Keep document title AND the html lang attribute in sync with the site language
   useEffect(() => {
     document.title = lang === "en" ? "Petra Elek — Soprano" : "Elek Petra — Szoprán";
+    document.documentElement.lang = lang;
   }, [lang]);
 
   return null;

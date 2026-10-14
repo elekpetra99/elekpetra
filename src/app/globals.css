@@ -27,7 +27,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 60px; /* offset for fixed header */
+  scroll-padding-top: 62px; /* offset for fixed header (61px) */
   -webkit-text-size-adjust: 100%; /* prevent iOS landscape text zoom */
   text-size-adjust: 100%;
 }
@@ -852,6 +852,12 @@ p {
   line-height: 1.5;
 }
 
+.article-date {
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+  font-style: italic;
+}
+
 @media (max-width: 600px) {
   .article-item {
     grid-template-columns: 1fr;
@@ -939,7 +945,8 @@ p {
 
 .contact-form input,
 .contact-form textarea {
-  padding: 0.6rem 0.8rem;
+  /* extra vertical padding keeps inputs >=40px tall (mobile tap targets) */
+  padding: 0.75rem 0.8rem;
   margin-bottom: 1rem;
   font-size: 0.95rem;
 }
