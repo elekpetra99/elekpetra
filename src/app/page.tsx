@@ -19,13 +19,25 @@ function HeroContent() {
       <div className="hero-grid">
         {/* Image first on mobile and desktop */}
         <div className="hero-image">
-          <img 
-            src="/portrait.jpg?v=4" 
-            alt="Elek Petra" 
-            width={1067}
-            height={1600}
-            fetchPriority="high"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet="/opt/portrait-480.avif 480w, /opt/portrait-900.avif 900w, /opt/portrait-1350.avif 1350w"
+              sizes="(min-width: 900px) 46vw, 100vw"
+            />
+            <source
+              type="image/webp"
+              srcSet="/opt/portrait-480.webp 480w, /opt/portrait-900.webp 900w, /opt/portrait-1350.webp 1350w"
+              sizes="(min-width: 900px) 46vw, 100vw"
+            />
+            <img 
+              src="/portrait.jpg?v=4" 
+              alt="Elek Petra" 
+              width={1067}
+              height={1600}
+              fetchPriority="high"
+            />
+          </picture>
         </div>
         
         {/* Text content */}

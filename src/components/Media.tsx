@@ -5,19 +5,31 @@ import { useLanguage } from "@/components/LanguageContext";
 
 interface GalleryImage {
   src: string;
+  /** Stem of the AVIF/WebP variants in /opt (see images/*.jpg masters). */
+  base: string;
   caption: string | null;
 }
 
 const galleryImages: GalleryImage[] = [
-  { src: "/gallery-01.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2024/25" },
-  { src: "/gallery-02.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2024/25" },
-  { src: "/gallery-03.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2024/25" },
-  { src: "/gallery-04.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2025/26" },
-  { src: "/gallery-05.jpg?v=3", caption: "Kvintesszencia Mesteriskola 2025/26" },
-  { src: "/gallery-06.jpg?v=3", caption: "PIX Photostudio" },
-  { src: "/gallery-07.jpg?v=3", caption: "PIX Photostudio" },
-  { src: "/gallery-08.jpg?v=3", caption: "PIX Photostudio" },
+  { src: "/gallery-01.jpg?v=3", base: "/opt/gallery-01", caption: "Kvintesszencia Mesteriskola 2024/25" },
+  { src: "/gallery-02.jpg?v=3", base: "/opt/gallery-02", caption: "Kvintesszencia Mesteriskola 2024/25" },
+  { src: "/gallery-03.jpg?v=3", base: "/opt/gallery-03", caption: "Kvintesszencia Mesteriskola 2024/25" },
+  { src: "/gallery-04.jpg?v=3", base: "/opt/gallery-04", caption: "Kvintesszencia Mesteriskola 2025/26" },
+  { src: "/gallery-05.jpg?v=3", base: "/opt/gallery-05", caption: "Kvintesszencia Mesteriskola 2025/26" },
+  { src: "/gallery-06.jpg?v=3", base: "/opt/gallery-06", caption: "PIX Photostudio" },
+  { src: "/gallery-07.jpg?v=3", base: "/opt/gallery-07", caption: "PIX Photostudio" },
+  { src: "/gallery-08.jpg?v=3", base: "/opt/gallery-08", caption: "PIX Photostudio" },
 ];
+
+// Grid: 3 columns from 600px up, 2 below — so half the viewport on phones,
+// a third on tablets and desktops. Keeps the browser from fetching a 1350px
+// file for a 180px slot.
+const GRID_SIZES = "(min-width: 600px) 33vw, 50vw";
+const GRID_WIDTHS = [480, 900];
+const LIGHTBOX_WIDTHS = [900, 1350];
+
+const srcSet = (base: string, ext: string, widths: number[]) =>
+  widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(", ");
 
 // Per-slot crop focus (user-specified, mobile 2-col grid positions)
 // 2-col layout: col1 = 01,03,05,07 / col2 = 02,04,06,08
@@ -127,14 +139,27 @@ export function Media() {
                 }
               }}
             >
-              <img
-                src={img.src}
-                alt={img.caption ? `Elek Petra — ${img.caption}` : "Elek Petra — Gallery"}
-                className={`gallery-photo${focusMap[i] ? ` ${focusMap[i]}` : ""}`}
-                loading="lazy"
-                draggable={false}
-                onContextMenu={(e) => e.preventDefault()}
-              />
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet={srcSet(img.base, "avif", GRID_WIDTHS)}
+                  sizes={GRID_SIZES}
+                />
+                <source
+                  type="image/webp"
+                  srcSet={srcSet(img.base, "webp", GRID_WIDTHS)}
+                  sizes={GRID_SIZES}
+                />
+                <img
+                  src={img.src}
+                  alt={img.caption ? `Elek Petra — ${img.caption}` : "Elek Petra — Gallery"}
+                  className={`gallery-photo${focusMap[i] ? ` ${focusMap[i]}` : ""}`}
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                />
+              </picture>
               {img.caption && (
                 <div className="gallery-overlay">
                   <div className="gallery-title">{img.caption}</div>
@@ -182,14 +207,26 @@ export function Media() {
           {current.caption && (
             <div className="lightbox-caption">{current.caption}</div>
           )}
-          <img
-            className="lightbox-img"
-            src={current.src}
-            alt={current.caption ? `Elek Petra — ${current.caption}` : "Elek Petra — Gallery"}
-            draggable={false}
-            onContextMenu={(e) => e.preventDefault()}
-            onClick={(e) => e.stopPropagation()}
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet={srcSet(current.base, "avif", LIGHTBOX_WIDTHS)}
+              sizes="94vw"
+            />
+            <source
+              type="image/webp"
+              srcSet={srcSet(current.base, "webp", LIGHTBOX_WIDTHS)}
+              sizes="94vw"
+            />
+            <img
+              className="lightbox-img"
+              src={current.src}
+              alt={current.caption ? `Elek Petra — ${current.caption}` : "Elek Petra — Gallery"}
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </picture>
         </div>
       )}
     </section>

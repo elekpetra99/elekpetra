@@ -16,7 +16,7 @@ function NavContent() {
 
   return (
     <nav>
-      <a href="#" className="logo">Elek Petra</a>
+      <a href="#hero" className="logo">Elek Petra</a>
 
       {/* Desktop navigation */}
       <div className="nav-links">

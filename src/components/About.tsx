@@ -108,7 +108,9 @@ export function About() {
         <h3>{t.about.competitions}</h3>
         {competitions.map((h, i) => (
           <div key={i} className="highlight-item">
-            {h.year && <span className="highlight-year">{h.year}</span>}
+            {/* Year rail stays in the layout even when empty, so entries
+                without a year keep the same alignment as the rest. */}
+            <span className="highlight-year">{h.year}</span>
             <span className="highlight-text">{h.event}</span>
           </div>
         ))}

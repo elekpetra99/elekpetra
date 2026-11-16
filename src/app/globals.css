@@ -14,13 +14,11 @@
   --font-body: 'Crimson Pro', Georgia, serif;
   
   --content-width: min(90vw, 1100px);
-  --section-gap: 3rem;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --section-gap: 5rem;
-  }
+  /* Vertical rhythm: three stops, used in order and nowhere else.
+     l = between sections, m = block to block, s = row to row. */
+  --pad-l: clamp(3.5rem, 7vw, 6.5rem);
+  --pad-m: clamp(1.75rem, 3.5vw, 2.5rem);
+  --pad-s: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,21 +46,24 @@ body {
   touch-action: pan-y;
 }
 
-/* Sections fill viewport — leave room for fixed header */
+/* Sections: height comes from content, not from the viewport. The hero is the
+   only moment that owns a full screen — everything after it is paced by the
+   rhythm tokens so a short section cannot be padded out into a dead band and a
+   long one (Rólam) is not forced into a template it does not fit. */
 main > section {
-  min-height: 100vh;
-  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  /* scroll-padding-top on html handles the fixed header offset */
+  padding-top: var(--pad-l);
+  padding-bottom: var(--pad-l);
 }
 
-/* Non-hero sections account for header height in their min-height */
-main > section:not(#hero) {
-  min-height: calc(100vh - 60px);
-  min-height: calc(100dvh - 60px);
+#hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 /* Respect reduced motion — disable smooth scroll */
@@ -83,6 +84,16 @@ a {
 
 a:hover, a:focus {
   color: var(--burgundy-dark);
+}
+
+/* ===== PICTURE WRAPPERS ===== */
+/* <picture> exists only to offer AVIF/WebP sources; it must not become a layout
+   box of its own, or the sizing rules written for the <img> stop applying. */
+.hero-image picture,
+.gallery-item picture,
+.lightbox picture,
+.article-item picture {
+  display: contents;
 }
 
 /* ===== HEADER ===== */
@@ -383,14 +394,15 @@ h1 .accent { color: var(--burgundy); }
 
 /* ===== SECTIONS ===== */
 section {
-  padding: var(--section-gap) 1.25rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
   max-width: var(--content-width);
   margin: 0 auto;
   width: 100%;
 }
 
 @media (min-width: 768px) {
-  section { padding: var(--section-gap) 2rem; }
+  section { padding-left: 2rem; padding-right: 2rem; }
 }
 
 .section-alt {
@@ -415,7 +427,7 @@ h2 {
   font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 600;
   color: var(--near-black);
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--pad-m);
 }
 
 h3 {
@@ -425,11 +437,11 @@ h3 {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--warm-gray);
-  margin-bottom: 1rem;
+  margin-bottom: var(--pad-s);
 }
 
 p {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--pad-s);
   max-width: 65ch;
   color: var(--near-black);
   font-size: 1.05rem;
@@ -450,40 +462,69 @@ p {
   }
 }
 
+.about-text {
+  width: 100%;
+  max-width: 44rem;
+}
+
 .about-text h2 {
-  margin-bottom: 1rem;
+  margin-bottom: var(--pad-m);
+}
+
+/* First paragraph is the lead: one size up, on the display serif's shoulder,
+   so the reader gets who this is before the CV begins. */
+.about-text > p:first-of-type {
+  font-size: 1.2rem;
+  line-height: 1.55;
+  max-width: 54ch;
+  margin-bottom: var(--pad-m);
 }
 
 .about-text p {
-  margin-bottom: 1rem;
+  margin-bottom: var(--pad-s);
 }
 
-.about-highlights h3 {
-  margin-bottom: 1rem;
+.about-text h3 {
+  margin-top: var(--pad-m);
+  margin-bottom: var(--pad-s);
 }
 
+/* CV rows: year rail on the left, entry on the right. One hairline per row
+   instead of a card per row — 25 entries read as a list, not a stack of boxes. */
 .highlight-item {
-  padding: 0.75rem 0 0.75rem 1rem;
-  border-left: 2px solid var(--stone);
-  margin-bottom: 0.75rem;
-  transition: border-color 0.2s ease;
+  display: grid;
+  grid-template-columns: 5.25rem 1fr;
+  gap: 0.15rem 1.25rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--stone);
 }
 
-.highlight-item:hover {
-  border-color: var(--burgundy);
+.highlight-item:last-child {
+  border-bottom: 1px solid var(--stone);
 }
 
 .highlight-year {
-  font-size: 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
   color: var(--burgundy);
   font-weight: 600;
   display: block;
-  margin-bottom: 0.15rem;
+  margin: 0;
 }
 
 .highlight-text {
-  font-size: 1.05rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 420px) {
+  .highlight-item {
+    grid-template-columns: 4.25rem 1fr;
+    gap: 0.1rem 0.75rem;
+  }
+  .highlight-text { font-size: 0.95rem; }
 }
 
 /* ===== REPERTOIRE ===== */

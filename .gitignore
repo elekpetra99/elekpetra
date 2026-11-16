@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local QA artefacts and planning notes (not part of the site)
+/.baselines/
+/plans/

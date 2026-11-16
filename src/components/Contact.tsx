@@ -111,10 +111,10 @@ export function Contact() {
         <div className="contact-form">
           <form onSubmit={handleSubmit}>
             <label htmlFor="cf-name">{c.name}</label>
-            <input id="cf-name" type="text" name="name" required />
+            <input id="cf-name" type="text" name="name" autoComplete="name" required />
 
             <label htmlFor="cf-email">{c.email}</label>
-            <input id="cf-email" type="email" name="email" required />
+            <input id="cf-email" type="email" name="email" autoComplete="email" required />
 
             <label htmlFor="cf-message">{c.message}</label>
             <textarea id="cf-message" name="message" rows={4} required />
